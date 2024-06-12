@@ -8,9 +8,10 @@ import javafx.event.ActionEvent;
 
 public class HomeController {
     @FXML private Label target;
-    public void GoToLogin(ActionEvent event){
+
+   @FXML public void GoToLogin(ActionEvent event){
         try{
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
             Parent Login = loader.load();
             Scene loginScene = new Scene(Login);
             Stage LoginWindow = (Stage) target.getScene().getWindow();
@@ -21,9 +22,9 @@ public class HomeController {
         }
     }
 
-    public void GoToRegistration(ActionEvent event){
+   @FXML public void GoToRegistration(ActionEvent event){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Registration/Register.fxml"));
             Parent Register = loader.load();
             Scene RegScene = new Scene(Register);
             Stage RegWindow = (Stage) target.getScene().getWindow();
