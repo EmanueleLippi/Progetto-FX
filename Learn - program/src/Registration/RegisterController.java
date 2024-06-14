@@ -101,4 +101,18 @@ public class RegisterController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
+    @FXML protected void showLogin(ActionEvent event){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
+                Parent Login = loader.load();
+                Scene loginScene = new Scene(Login);
+                Stage LoginWindow = (Stage) username.getScene().getWindow();
+                LoginWindow.setScene(loginScene);
+                LoginWindow.show();
+            } catch(Exception e){
+                System.out.println("Verificato un errore nel caricamento della finestra di login: --> "+e.getMessage());
+            }
+    }
 }

@@ -82,7 +82,21 @@ public class LoginController {
       this.UserName.clear();
       this.PwField.clear();
       alert.showAndWait();
-      //TODO: Implementare il cambio di scena dando la possibilità di andare alla schermata di registrazione
 
    }
+
+
+   @FXML protected void showRegister(ActionEvent event){
+        try{
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Registration/Register.fxml"));
+             Parent Register = loader.load();
+             Scene RegScene = new Scene(Register);
+             Stage RegWindow = (Stage) UserName.getScene().getWindow();
+             RegWindow.setScene(RegScene);
+             RegWindow.show();        
+             } catch(Exception e){
+        showAlert("Verificato un errore nel caricamento della finestra di registrazione: --> "+e.getMessage());
+         }
+    }
 }
+

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Registration.RegisterController">
    <children>
       <GridPane layoutX="122.0" layoutY="101.0" prefHeight="199.0" prefWidth="358.0">
@@ -32,9 +31,9 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" fx:id="username"/>
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="password"/>
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="confirmPassword"/>
+            <TextField fx:id="username" GridPane.columnIndex="1" />
+            <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="138.0" text="Password" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
@@ -50,7 +49,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="email"/>
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label alignment="CENTER" layoutX="206.0" layoutY="54.0" prefHeight="27.0" prefWidth="189.0" text="Registrati">
@@ -58,7 +57,9 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="Breg" layoutX="428.0" layoutY="316.0" mnemonicParsing="false" onAction="#registration" prefHeight="44.0" prefWidth="73.0" text="Registrati" />
+      <Button fx:id="Breg" layoutX="265.0" layoutY="312.0" mnemonicParsing="false" onAction="#registration" prefHeight="44.0" prefWidth="73.0" text="Registrati" />
+      <Label layoutX="422.0" layoutY="312.0" text="Hai già un account?" />
+      <Button layoutX="453.0" layoutY="334.0" mnemonicParsing="false" onAction="#showLogin" text="Accedi" />
    </children>
    <effect>
       <DisplacementMap offsetX="-10.0" offsetY="10.0" wrap="true">
