@@ -1,51 +1,72 @@
 package Login;
 
+import Esercizi.Front.FrontController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LoginController {
    @FXML private TextField  UserName;
    @FXML private PasswordField PwField;
+
+   private Utente utente;
    
-   public void checkLogin(ActionEvent event) throws FileNotFoundException{
-     
-      String user = UserName.getText();
-      String pw = PwField.getText();
-      if (checkContent(user, pw) == true) {
-         File file = new File("users.csv");
-         if (file.exists() && file.canRead()) {
-            Scanner scan = new Scanner("users.csv");
-            while(scan.hasNextLine()){
-               String line = scan.nextLine();
-               String[] token = line.split(",");
-               if(token[0].contains(user)){
-                  if (token[1].equals(pw)) {
-                     changeview();
-                  } else{
-                     showAlert("Password errata");
+   @FXML protected void checkLogin(ActionEvent event) {
+      if (checkContent()) {
+          try {
+              Scanner scan = new Scanner(new File("Learn - program/src/Data/users.csv"));
+              while (scan.hasNextLine()) {
+                  String line = scan.nextLine();
+                  String[] data = line.split(",");
+                  for (int i = 0; i < data.length; i++) 
+                      data[i] = data[i].trim();
+                  
+                  if (data[0].equals(UserName.getText()) && data[1].equals(PwField.getText())) {
+                      utente = new Utente(data[0], data[2]);
+                      FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+  
+                      Parent front = loader.load();
+  
+                      FrontController frontController = loader.getController();
+  
+                      Scene froScene = new Scene(front);
+  
+                      frontController.setUtente(utente);
+  
+                      Stage stage = (Stage) UserName.getScene().getWindow();
+  
+                      stage.setScene(froScene);
+  
+                      stage.show();
+                      scan.close();
+                      return; // Exit the method if login is successful
                   }
-               }
-            }
-            scan.close();
-         } else {
-            System.out.println("File not found");
-         }
+              }
+              scan.close();
+              if (utente == null) {
+                  showAlert("Username or password is incorrect, retry again.");
+              }
+          } catch (Exception e) {
+              showAlert(e.getMessage());
+          }
       }
-   }
+  }
 
 
-   private boolean checkContent(String user, String pw){
-      if(user.isEmpty()){
+   private boolean checkContent(){
+      if(this.UserName.getText().isEmpty()){
          this.UserName.setPromptText("Username is required");
          return false;
-      }else if(pw.isEmpty()){
+      }else if(this.PwField.getText().isEmpty()){
          this.PwField.setPromptText("Password is required");
          return false;
       }
@@ -54,15 +75,12 @@ public class LoginController {
    }
 
 
-  @FXML private void changeview(){
-      //TODO: Implementare il cambio di scena
-
-   }
-
-   private void showAlert(String message){
+   @FXML private void showAlert(String message){
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Login Error");
       alert.setContentText(message);
+      this.UserName.clear();
+      this.PwField.clear();
       alert.showAndWait();
       //TODO: Implementare il cambio di scena dando la possibilità di andare alla schermata di registrazione
 
