@@ -2,11 +2,19 @@ package Registration;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
+import Esercizi.Front.FrontController;
+import Login.Utente;
 
 public class RegisterController {
     @FXML private TextField username;
@@ -30,6 +38,22 @@ public class RegisterController {
                     printWriter.println(username+","+password+","+email);
                     printWriter.close();
                     //todo send the user to start page
+                    Utente utente = new Utente(username, email);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+  
+                      Parent front = loader.load();
+  
+                      FrontController frontController = loader.getController();
+  
+                      Scene froScene = new Scene(front);
+  
+                      frontController.setUtente(utente);
+  
+                      Stage stage = (Stage) this.username.getScene().getWindow();
+  
+                      stage.setScene(froScene);
+  
+                      stage.show();
                 } else {
                     PrintWriter printWriter = new PrintWriter(file);
                     printWriter.println(username + ", "+password+", "+email);
