@@ -30,8 +30,8 @@ public class RegisterController {
 
         if(doValidation(username, password, confirmPassword, email) ==true){
             try {
-                //do registration on file csv
-                File file = new File("users.csv");
+                //do registration on file csv 
+                File file = new File("Learn - program/src/Data/users.csv");
                 if (file.exists()) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
