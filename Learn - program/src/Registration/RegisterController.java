@@ -115,4 +115,17 @@ public class RegisterController {
                 System.out.println("Verificato un errore nel caricamento della finestra di login: --> "+e.getMessage());
             }
     }
+
+    @FXML private void goToHome() {
+        try {
+            Parent home = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+            Scene homeScene = new Scene(home);
+            Stage primaryStage = (Stage) username.getScene().getWindow();
+            primaryStage.setScene(homeScene);
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println("Errore nel caricamento della finestra Home: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

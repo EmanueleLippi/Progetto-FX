@@ -57,6 +57,7 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Label>
+      <Button layoutX="20.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToHome" text="Torna alla Home" />
       <Button fx:id="Breg" layoutX="265.0" layoutY="312.0" mnemonicParsing="false" onAction="#registration" prefHeight="44.0" prefWidth="73.0" text="Registrati" />
       <Label layoutX="422.0" layoutY="312.0" text="Hai già un account?" />
       <Button layoutX="453.0" layoutY="334.0" mnemonicParsing="false" onAction="#showLogin" text="Accedi" />

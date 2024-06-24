@@ -9,29 +9,29 @@ import javafx.event.ActionEvent;
 public class HomeController {
     @FXML private Label target;
 
-   @FXML public void GoToLogin(ActionEvent event){
+    @FXML public void GoToLogin(ActionEvent event){
         try{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
-            Parent Login = loader.load();
-            Scene loginScene = new Scene(Login);
-            Stage LoginWindow = (Stage) target.getScene().getWindow();
-            LoginWindow.setScene(loginScene);
-            LoginWindow.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
+            Parent login = loader.load();
+            Scene loginScene = new Scene(login);
+            Stage loginWindow = (Stage) target.getScene().getWindow();
+            loginWindow.setScene(loginScene);
+            loginWindow.show();
         } catch(Exception e){
             System.out.println("Verificato un errore nel caricamento della finestra di login: --> "+e.getMessage());
         }
     }
 
-   @FXML public void GoToRegistration(ActionEvent event){
+    @FXML public void GoToRegistration(ActionEvent event){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Registration/Register.fxml"));
-            Parent Register = loader.load();
-            Scene RegScene = new Scene(Register);
-            Stage RegWindow = (Stage) target.getScene().getWindow();
-            RegWindow.setScene(RegScene);
-            RegWindow.show();        
+            Parent register = loader.load();
+            Scene regScene = new Scene(register);
+            Stage regWindow = (Stage) target.getScene().getWindow();
+            regWindow.setScene(regScene);
+            regWindow.show();
         } catch(Exception e){
             System.out.println("Verificato un errore nel caricamento della finestra di registrazione: --> "+e.getMessage());
         }
-    }
+    }   
 }
