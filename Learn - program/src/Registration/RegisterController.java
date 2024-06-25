@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.util.Arrays;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,9 +36,10 @@ public class RegisterController {
                 if (file.exists()) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(username+","+password+","+email);
+                    int[] score = {0,0,0,0,0,0,0,0,0};
+                    printWriter.println(username+","+password+","+email+","+Arrays.toString(score));
                     printWriter.close();
-                    //todo send the user to start page
+
                     Utente utente = new Utente(username, email);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
   

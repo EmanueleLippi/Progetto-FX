@@ -17,9 +17,8 @@ import java.util.Scanner;
 public class LoginController {
    @FXML private TextField  UserName;
    @FXML private PasswordField PwField;
-
    private Utente utente;
-   
+
    @FXML protected void checkLogin(ActionEvent event) {
       if (checkContent()) {
           try {
@@ -31,7 +30,7 @@ public class LoginController {
                       data[i] = data[i].trim();
                   
                   if (data[0].equals(UserName.getText()) && data[1].equals(PwField.getText())) {
-                      utente = new Utente(data[0], data[2]);
+                      this.utente = new Utente(data[0], data[2]);
                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
   
                       Parent front = loader.load();
