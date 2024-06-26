@@ -18,79 +18,75 @@ import Esercizi.Front.FrontController;
 import Login.Utente;
 
 public class RegisterController {
-    @FXML private TextField username;
-    @FXML private TextField password;
-    @FXML private TextField confirmPassword;
-    @FXML private TextField email;
+    @FXML private TextField usernameField;
+    @FXML private TextField passwordField;
+    @FXML private TextField confirmPasswordField;
+    @FXML private TextField emailField;
 
-  @FXML  public void registration(ActionEvent event){
-        String username = this.username.getText();
-        String password = this.password.getText();
-        String confirmPassword = this.confirmPassword.getText();
-        String email = this.email.getText();
+    @FXML public void registration(ActionEvent event){
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+        String email = emailField.getText();
 
-        if(doValidation(username, password, confirmPassword, email) ==true){
+        if (doValidation(username, password, confirmPassword, email)) {
             try {
-                //do registration on file csv 
+                // Effettua la registrazione su file CSV
                 File file = new File("Learn - program/src/Data/users.csv");
                 if (file.exists()) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
                     int[] score = {0,0,0,0,0,0,0,0,0};
-                    printWriter.println(username+","+password+","+email+","+Arrays.toString(score));
+                    printWriter.println(username + "," + password + "," + email + "," + Arrays.toString(score));
                     printWriter.close();
 
-                    Utente utente = new Utente(username, email);
+                    Utente utente = new Utente(username, email, password);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
-  
-                      Parent front = loader.load();
-  
-                      FrontController frontController = loader.getController();
-  
-                      Scene froScene = new Scene(front);
-  
-                      frontController.setUtente(utente);
-  
-                      Stage stage = (Stage) this.username.getScene().getWindow();
-  
-                      stage.setScene(froScene);
-  
-                      stage.show();
+
+                    Parent front = loader.load();
+
+                    FrontController frontController = loader.getController();
+
+                    Scene froScene = new Scene(front);
+
+                    frontController.setUtente(utente);
+
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+
+                    stage.setScene(froScene);
+
+                    stage.show();
                 } else {
                     PrintWriter printWriter = new PrintWriter(file);
-                    printWriter.println(username + ", "+password+", "+email);
+                    printWriter.println(username + ", " + password + ", " + email);
                     printWriter.close();
                 }
 
             } catch (Exception e) {
-                System.out.println("Error: "+e.getMessage());
+                showAlert("Error", "An error occurred during registration", e.getMessage());
             }
         }
-       
-
-
-                    
     }
 
     private boolean doValidation(String username, String password, String confirmPassword, String email) {
         if (username.isEmpty()) {
-            this.username.setPromptText("Username is required");
+            usernameField.setPromptText("Username is required");
             return false;
         }
-        if(password.isEmpty()){
-            this.password.setPromptText("Password is required");
+        if (password.isEmpty()) {
+            passwordField.setPromptText("Password is required");
             return false;
         }
-        if(confirmPassword.isEmpty()){
-            this.confirmPassword.setPromptText("Confirm Password is required");
-            return false;
-        }           
-        if(email.isEmpty()){
-            this.email.setPromptText("Email is required");
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordField.setPromptText("Confirm Password is required");
             return false;
         }
-        if(!password.equals(confirmPassword)){
-            showAlert("Errore", "Passwords non coincidono", "Assicurarsi che le password siano corrette.");
+        if (email.isEmpty()) {
+            emailField.setPromptText("Email is required");
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            showAlert("Error", "Passwords do not match", "Make sure passwords are correct.");
             return false;
         }
         return true;
@@ -104,30 +100,28 @@ public class RegisterController {
         alert.showAndWait();
     }
 
-
     @FXML protected void showLogin(ActionEvent event){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
-                Parent Login = loader.load();
-                Scene loginScene = new Scene(Login);
-                Stage LoginWindow = (Stage) username.getScene().getWindow();
-                LoginWindow.setScene(loginScene);
-                LoginWindow.show();
-            } catch(Exception e){
-                System.out.println("Verificato un errore nel caricamento della finestra di login: --> "+e.getMessage());
-            }
+            Parent login = loader.load();
+            Scene loginScene = new Scene(login);
+            Stage loginWindow = (Stage) usernameField.getScene().getWindow();
+            loginWindow.setScene(loginScene);
+            loginWindow.show();
+        } catch(Exception e){
+            showAlert("Error", "Error loading login window", e.getMessage());
+        }
     }
 
     @FXML private void goToHome() {
         try {
             Parent home = FXMLLoader.load(getClass().getResource("/Home.fxml"));
             Scene homeScene = new Scene(home);
-            Stage primaryStage = (Stage) username.getScene().getWindow();
+            Stage primaryStage = (Stage) usernameField.getScene().getWindow();
             primaryStage.setScene(homeScene);
             primaryStage.show();
         } catch (Exception e) {
-            System.out.println("Errore nel caricamento della finestra Home: " + e.getMessage());
-            e.printStackTrace();
+            showAlert("Error", "Error loading home window", e.getMessage());
         }
     }
 }

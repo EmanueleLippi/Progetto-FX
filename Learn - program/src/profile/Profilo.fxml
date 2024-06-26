@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="profile.ProfiloController" spacing="20" alignment="CENTER" prefWidth="600" prefHeight="400" style="-fx-background-color: #f0f0f0; -fx-padding: 20px;">
+    <Label text="Profilo Utente" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label fx:id="usernameLabel" text="Username: " style="-fx-font-size: 16px;"/>
+    <Label fx:id="emailLabel" text="Email: " style="-fx-font-size: 16px;"/>
+    <HBox spacing="10" alignment="CENTER">
+        <Label fx:id="passwordLabel" text="Password: " style="-fx-font-size: 16px;"/>
+        <Label fx:id="maskedPasswordLabel" text="••••••••" style="-fx-font-size: 16px;"/>
+        <Button fx:id="togglePasswordButton" text="VEDI" onAction="#VisualizzaPassword" style="-fx-font-size: 14px;"/>
+    </HBox>
+    <Button text="Logout" onAction="#logout" style="-fx-font-size: 14px;"/>
+        <Button text="Torna alla dashboard" onAction="#tornaDashboard" style="-fx-font-size: 14px;"/>
+
+</VBox>

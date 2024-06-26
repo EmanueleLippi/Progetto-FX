@@ -32,7 +32,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="UserName" GridPane.columnIndex="1">
+            <TextField fx:id="userName" GridPane.columnIndex="1">
                <font>
                   <Font size="16.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <PasswordField fx:id="PwField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <PasswordField fx:id="pwField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="16.0" />
                </font>

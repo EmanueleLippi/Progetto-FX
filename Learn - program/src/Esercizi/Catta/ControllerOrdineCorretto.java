@@ -1,5 +1,7 @@
 package Esercizi.Catta;
 
+import Esercizi.Front.FrontController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -10,19 +12,20 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-
 import java.util.List;
+import Login.Utente;
 
 public class ControllerOrdineCorretto {
 
-    @FXML
-    private ListView<String> listView;
+    private Utente utente;
+    @FXML private ListView<String> listView;
+    @FXML private Label messageLabel;
+    @FXML private Button tornaDashboard;
+    @FXML private Label usernameLabel;
 
-    @FXML
-    private Label messageLabel;
-
-    @FXML
-    private Button backButton;
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
 
     private final ObservableList<String> segments = FXCollections.observableArrayList(
             "public class HelloWorld {",
@@ -36,11 +39,9 @@ public class ControllerOrdineCorretto {
     public void initialize() {
         listView.setItems(FXCollections.observableArrayList(segments));
         listView.setEditable(true);
-        backButton.setOnAction(event -> backToHome());
     }
 
-    @FXML
-    public void verificaOrdine() {
+    @FXML public void verificaOrdine() {
         List<String> orderedSegments = listView.getItems();
 
         if (isCorrectOrder(orderedSegments)) {
@@ -60,17 +61,5 @@ public class ControllerOrdineCorretto {
         );
 
         return orderedSegments.equals(correctOrder);
-    }
-
-    private void backToHome() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 600, 400);
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

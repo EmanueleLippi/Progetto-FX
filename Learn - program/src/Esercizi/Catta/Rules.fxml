@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Catta.RulesController" prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="30.0" prefHeight="340.0" prefWidth="500.0" spacing="20.0">
+            <children>
+                <Label text="Regole dell'esercizio Ordina Codice" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <VBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Text wrappingWidth="500.0" text="- l'utente visualizza un numero di segmenti di codice java." />
+                    <Text wrappingWidth="500.0" text="- All'utente è chiesto di ordinarli nella maniera che ritiene più opportuna." />
+                    <Text wrappingWidth="500.0" text="- Una volta dentro l'esercizio se si esce prima di averlo completato i dati non verranno salvati." />
+                    <Text wrappingWidth="500.0" text="- Una volta dentro l'esercizio se si clicca su verifica si otterrà il risultato." />
+                    <Text wrappingWidth="500.0" text="PREMERE OK PER PROSEGUIRE O PREMERE ANNULLA PER TORNARE ALLA DASHBOARD" />
+                </VBox>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <Button text="OK" onAction="#IniziaEsercizio" style="-fx-font-size: 14px; -fx-padding: 10px 20px;" />
+                    <Button text="ANNULLA" onAction="#tornaDashboard" style="-fx-font-size: 14px; -fx-padding: 10px 20px;" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

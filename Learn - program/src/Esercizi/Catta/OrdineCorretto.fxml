@@ -6,13 +6,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ControllerOrdineCorretto"
-      spacing="10" padding="10">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Catta.ControllerOrdineCorretto" alignment="CENTER" spacing="20.0">
     <Label text="Ordina i segmenti di codice nel giusto ordine:" />
     <ListView fx:id="listView" />
     <Button text="Verifica Ordine" onAction="#verificaOrdine"/>
-    <Label fx:id="messageLabel"/>
-    <Button text="Back to Home" onAction="#backToHome"/>
+    <Label fx:id="messageLabel"/> 
 </VBox>
