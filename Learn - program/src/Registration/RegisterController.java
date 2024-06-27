@@ -9,11 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.Arrays;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
 import Esercizi.Front.FrontController;
 import Login.Utente;
 
@@ -121,7 +119,8 @@ public class RegisterController {
             primaryStage.setScene(homeScene);
             primaryStage.show();
         } catch (Exception e) {
-            showAlert("Error", "Error loading home window", e.getMessage());
+            System.out.println("Errore durante il caricamento della schermata home: " + e.getMessage()); // Mostra un messaggio di errore se il caricamento fallisce
+            e.printStackTrace(); 
         }
     }
 }
