@@ -48,6 +48,7 @@ public class LoginController {
                 
                 if (data.length >= 3 && data[0].equals(usernameText) && data[1].equals(passwordText)) {
                     this.utente = new Utente(data[0], data[2], data[1]); 
+                    this.utente.loadFile(data[0], data[2], data[1]);//caricare da file 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml")); 
     
                     Parent front = loader.load(); 
