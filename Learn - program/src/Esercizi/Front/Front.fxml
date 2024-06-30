@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Front.FrontController" style="-fx-background-color: #e6f0ff;">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e6f0ff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Front.FrontController">
     <children>
         <AnchorPane prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #b3d9ff;">
             <children>
-                <Button layoutX="520.0" layoutY="5.0" mnemonicParsing="false" text="SALVA" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" />
-                <Button layoutX="430.0" layoutY="5.0" mnemonicParsing="false" text="PROFILO" onAction="#goProfilo" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" />
+                <Button layoutX="520.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" text="SALVA" />
+                <Button layoutX="430.0" layoutY="5.0" mnemonicParsing="false" onAction="#goProfilo" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" text="PROFILO" />
                 <Label fx:id="nameUser" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="133.0" />
             </children>
         </AnchorPane>
@@ -33,26 +33,26 @@
                     <children>
                         <Label onMouseClicked="#goRegoleCosaStampa" onMouseEntered="#move" onMouseExited="#setInitial" text="Cosa stampa?" />
                         <Label text="Difficoltà" />
-                        <ProgressBar prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="CosaStampaBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;" GridPane.columnIndex="1">
                     <children>
-                        <Label text="Ordina codice" onMouseClicked="#goRegoleOrdineCorretto"/>
+                        <Label onMouseClicked="#goRegoleOrdineCorretto" text="Ordina codice" />
                         <Label text="Difficoltà" />
-                        <ProgressBar prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="OrdinaCodiceBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" style="-fx-background-color: white;  -fx-padding: 10px; -fx-cursor: hand;">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;  -fx-padding: 10px; -fx-cursor: hand;" GridPane.rowIndex="1">
                     <children>
                         <Label text="Confronta codice" />
                         <Label text="Difficoltà" />
-                        <ProgressBar prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="ConfrontaCondiceBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Button mnemonicParsing="false" text="VERIFICA FINALE" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px;" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px;" text="VERIFICA FINALE" />
                     </children>
                 </VBox>
             </children>
