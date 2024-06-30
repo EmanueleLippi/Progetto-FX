@@ -1,6 +1,5 @@
 package Esercizi.Front;
 
-import Esercizi.Lippi.CosaStampaController;
 import Login.Utente;
 import profile.ProfiloController;
 import Esercizi.Catta.RulesController;
@@ -52,18 +51,19 @@ public class FrontController {
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    @FXML private void goCosaStampa(MouseEvent event){
+    @FXML private void goRegoleCosaStampa(MouseEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Lippi/CosaStampaBeta.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Lippi/Rules.fxml"));
             Parent cosaStampa = loader.load();
-            CosaStampaController cosaStampaController = loader.getController();
-            cosaStampaController.setUtente(utente);
+            Esercizi.Lippi.RulesController rulesLippi = loader.getController();
+            rulesLippi.setUtente(this.utente);
             Scene cosaStampaScene = new Scene(cosaStampa);
-            Stage stage = (Stage) this.nameUser.getScene().getWindow();
+            Stage stage = (Stage) ((Label) event.getSource()).getScene().getWindow(); //prova
             stage.setScene(cosaStampaScene);
             stage.show();
         } catch (Exception e) {
             System.out.println("Verificato un errore nel caricamento della finestra di cosaStampa: --> " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

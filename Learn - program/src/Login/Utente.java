@@ -37,11 +37,15 @@ public class Utente {
         return this.available;
     }
 
-    public void setScore(int indx, int score) {
-        this.score[indx] = score;
+    public void setScore(int indx) {
+        this.score[indx] = 1;
     }
 
     public void setAvailable() {
         this.available = !available;
+    }
+
+    public String onFile(){
+        return this.username + "," + this.email + "," + this.password+","+score[0]+","+score[1]+","+score[2]+","+score[3]+","+score[4]+","+score[5]+","+score[6]+","+score[7]+","+score[8];
     }
 }

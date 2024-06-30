@@ -31,7 +31,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;">
                     <children>
-                        <Label onMouseClicked="#goCosaStampa" onMouseEntered="#move" onMouseExited="#setInitial" text="Cosa stampa?" />
+                        <Label onMouseClicked="#goRegoleCosaStampa" onMouseEntered="#move" onMouseExited="#setInitial" text="Cosa stampa?" />
                         <Label text="Difficoltà" />
                         <ProgressBar prefWidth="200.0" progress="0.0" />
                     </children>
