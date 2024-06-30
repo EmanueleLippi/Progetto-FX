@@ -2,25 +2,46 @@ package Esercizi.Front;
 
 import Login.Utente;
 import profile.ProfiloController;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import Esercizi.Catta.RulesController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class FrontController {
+public class FrontController implements Initializable{
 
     @FXML private Label nameUser;
     @FXML private ProgressBar cosaStampaBar;
     @FXML private ProgressBar OrdinaCodiceBar;
     @FXML private ProgressBar ConfrontaCodiceBar;
+    @FXML private Pane root;
     private Utente utente;
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void initialize(URL location, ResourceBundle resources) {
+        // Aggiungi un listener alla scena per chiamare loadDomanda quando la finestra viene mostrata
+        root.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        showProgress();  // Chiamare showprogress quando la finestra è mostrata
+                    }
+                });
+            }
+        });
+    }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
