@@ -80,8 +80,8 @@ public class LoginController {
 
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    
+//TODO: CHIEDERE A CATTA
+   /* 
     // Metodo per controllare se i campi di input sono vuoti
     private boolean checkContent() {
         if (userName.getText().isEmpty()) { 
@@ -94,7 +94,7 @@ public class LoginController {
             return true; // Restituisce true se entrambi i campi sono pieni
         }
     }
-
+ */
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
