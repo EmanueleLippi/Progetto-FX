@@ -30,6 +30,7 @@ public class FrontController implements Initializable{
     private Utente utente;
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Aggiungi un listener alla scena per chiamare loadDomanda quando la finestra viene mostrata
         root.sceneProperty().addListener((observable, oldScene, newScene) -> {
@@ -46,13 +47,6 @@ public class FrontController implements Initializable{
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void setUtente(Utente utente){
-        this.utente = utente;
-        nameUser.setText(utente.toString());
-    }
-
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    public void initData(Utente utente) {
         this.utente = utente;
         nameUser.setText(utente.toString());
     }

@@ -69,7 +69,7 @@ public class ProfiloController {
         
         // Passa l'utente al controller della dashboard
         FrontController frontController = loader.getController();
-        frontController.initData(utente);
+        frontController.setUtente(utente);
         
         Scene scene = new Scene(root);
         Stage stage = (Stage) usernameLabel.getScene().getWindow();
