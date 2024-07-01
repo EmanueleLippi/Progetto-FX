@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class FrontController implements Initializable{
 
     @FXML private Label nameUser;
-    @FXML private ProgressBar cosaStampaBar;
+    @FXML private ProgressBar CosaStampaBar;
     @FXML private ProgressBar OrdinaCodiceBar;
     @FXML private ProgressBar ConfrontaCodiceBar;
     @FXML private Pane root;
@@ -117,19 +117,20 @@ public class FrontController implements Initializable{
         Label source = (Label) event.getSource();
         source.setStyle("-fx-background-color: #ffffff; -fx-width: 133;");
     }
+    
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    //TODO: fare il metodo per mostrare a che punto è arrivato l'utente?
     @FXML private void showProgress(){
         //progress CosaStampa
         for(int i = 0; i < 3; i++){
             if(utente.getScore()[0] == 1){
-                cosaStampaBar.setProgress(0.33);
+                CosaStampaBar.setProgress(0.33);
             }
             if(utente.getScore()[1] == 1){
-                cosaStampaBar.setProgress(0.66);
+                CosaStampaBar.setProgress(0.66);
             }
             if(utente.getScore()[2] == 1){
-                cosaStampaBar.setProgress(1);
+                CosaStampaBar.setProgress(1);
             }
         }
 
