@@ -3,12 +3,56 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Catta.ControllerOrdineCorretto" alignment="CENTER" spacing="20.0">
-    <Label text="Ordina i segmenti di codice nel giusto ordine:" />
-    <ListView fx:id="listView" />
-    <Button text="Verifica Ordine" onAction="#verificaOrdine"/>
-    <Label fx:id="messageLabel"/> 
-</VBox>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Esercizi.Catta.ControllerOrdineCorretto">
+    <top>
+        <Label text="Ordina i segmenti di codice nel modo corretto" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <VBox spacing="10">
+            <children>
+                <HBox spacing="10">
+                    <children>
+                        <ImageView fx:id="imageA" />
+                        <Label text="A" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <ImageView fx:id="imageB" />
+                        <Label text="B" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <ImageView fx:id="imageC" />
+                        <Label text="C" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <ImageView fx:id="imageD" />
+                        <Label text="D" />
+                    </children>
+                </HBox>
+                <TextField fx:id="sequenceInput" promptText="Inserisci la sequenza corretta delle lettere" />
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button text="SALVA" onAction="#handleSalva" />
+                <Button text="ESCI" onAction="#handleEsci" />
+            </children>
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>
