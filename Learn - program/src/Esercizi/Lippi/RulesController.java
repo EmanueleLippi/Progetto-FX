@@ -1,5 +1,6 @@
 package Esercizi.Lippi;
 
+import Esercizi.Front.FrontController;
 import Login.Utente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,22 @@ public class RulesController {
             Scene cosaStampaScene = new Scene(cosaStampa);
             Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow(); //prova
             stage.setScene(cosaStampaScene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Verificato un errore nel caricamento della finestra di cosaStampa: --> " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML private void back(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+            Parent front = loader.load();
+            FrontController frontController = loader.getController();
+            frontController.setUtente(this.utente);
+            Scene frontScene = new Scene(front);
+            Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow(); //prova
+            stage.setScene(frontScene);
             stage.show();
         } catch (Exception e) {
             System.out.println("Verificato un errore nel caricamento della finestra di cosaStampa: --> " + e.getMessage());
