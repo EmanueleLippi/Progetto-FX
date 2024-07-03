@@ -27,13 +27,13 @@ public class RegisterController {
         String email = emailField.getText();
 
         if (doValidation(username, password, confirmPassword, email)) {
+            Utente utente = new Utente(username, email, password);
             try {
                 // Effettua la registrazione su file CSV
                 File file = new File("Learn - program/src/Data/users.csv");
                 if (file.exists()) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
-                    Utente utente = new Utente(username, email, password);
                     printWriter.println(utente.onFile());
                     printWriter.close();
 
@@ -55,7 +55,7 @@ public class RegisterController {
                     stage.show();
                 } else {
                     PrintWriter printWriter = new PrintWriter(file);
-                    printWriter.println(username + ", " + password + ", " + email);
+                    printWriter.println(utente.onFile());
                     printWriter.close();
                 }
 

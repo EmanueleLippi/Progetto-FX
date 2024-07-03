@@ -14,7 +14,7 @@
     <children>
         <AnchorPane prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #b3d9ff;">
             <children>
-                <Button layoutX="520.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" text="SALVA" />
+                <Button layoutX="520.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" text="SALVA" onAction="#salva"/>
                 <Button layoutX="430.0" layoutY="5.0" mnemonicParsing="false" onAction="#goProfilo" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px; -fx-cursor: hand;" text="PROFILO" />
                 <Label fx:id="nameUser" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="133.0" />
             </children>

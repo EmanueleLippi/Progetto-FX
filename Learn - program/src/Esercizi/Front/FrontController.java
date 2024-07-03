@@ -3,8 +3,14 @@ package Esercizi.Front;
 import Login.Utente;
 import profile.ProfiloController;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.Set;
 
 import Esercizi.Catta.RulesController;
 import javafx.event.ActionEvent;
@@ -117,7 +123,7 @@ public class FrontController implements Initializable{
         Label source = (Label) event.getSource();
         source.setStyle("-fx-background-color: #ffffff; -fx-width: 133;");
     }
-    
+
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @FXML private void showProgress(){
@@ -161,6 +167,54 @@ public class FrontController implements Initializable{
         }
 
     }
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@FXML private void salva(ActionEvent event){
+                try {
+            File inputFile = new File("Learn - program/src/Data/users.csv");
+            if (!inputFile.exists()) {
+                System.out.println("Errore: il file di input non esiste.");
+                return;
+            }
+
+            Scanner scan = new Scanner(inputFile);
+            Set<String[]> lines = new HashSet<>();
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                String[] elements = line.split(",");
+                if (elements.length >= 11) { // Verifica che ci siano almeno 11 elementi
+                    lines.add(elements); // Aggiungo la riga al set
+                } else {
+                    System.out.println("Riga con formato errato: " + line);
+                }
+            }
+            scan.close();
+
+        // Ora lavoro sul set
+            File outputFile = new File("Learn - program/src/Data/users.csv");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            for (String[] s : lines) {
+                if (s[0].equals(utente.getUsername()) && s[1].equals(utente.getPassword()) && s[2].equals(utente.getEmail())) { // Eseguo il check sull'utente
+                    s = utente.onFile().split(","); // Aggiorno la riga
+                }
+            // Controllo che l'array s abbia almeno 11 elementi prima di accedere agli indici
+                if (s.length >= 11) {
+                    writer.write(s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4] + "," + s[5] + "," + s[6] + "," + s[7] + "," + s[8]+ "," + s[9]+ "," + s[10]+ "," + s[11]);
+                    writer.newLine();
+                } else {
+                    System.out.println("Riga con formato errato dopo aggiornamento: " + String.join(",", s));
+                }
+             }
+            writer.close();
+
+        } catch (Exception e) {
+            System.out.println("Errore in save: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

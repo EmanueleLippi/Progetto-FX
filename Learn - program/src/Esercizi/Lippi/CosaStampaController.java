@@ -11,8 +11,10 @@ import java.util.Set;
 
 import Esercizi.Front.FrontController;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import Login.Utente;
 import javafx.event.ActionEvent;
@@ -143,7 +145,7 @@ public class CosaStampaController implements Initializable{
                     stage.setScene(scene);
                     stage.show();
                 }catch(Exception e){
-                    System.out.println("Errore: "+e.getMessage());
+                    System.out.println("Errore in check: "+e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -164,34 +166,53 @@ public class CosaStampaController implements Initializable{
                 }
             }
             loadDomanda(); // carico una nuova domanda
-        }
+        } //FIXME: gestire il caso in cui la risposta sia sbagliata
         
     }
 
-    @FXML private void save(ActionEvent event){
-        //TODO: fare il metodo per salvare il punteggio
-        try{
-            Scanner scan = new Scanner("Data/users.csv");
-            Set<String[]> line = new HashSet<>();
+    @FXML private void save(ActionEvent event) {
+        try {
+            File inputFile = new File("Learn - program/src/Data/users.csv");
+            if (!inputFile.exists()) {
+                System.out.println("Errore: il file di input non esiste.");
+                return;
+            }
+
+            Scanner scan = new Scanner(inputFile);
+            Set<String[]> lines = new HashSet<>();
             while (scan.hasNextLine()) {
-                line.add(scan.nextLine().split(",")); // aggiungo la riga al set
+                String line = scan.nextLine();
+                String[] elements = line.split(",");
+                if (elements.length >= 11) { // Verifica che ci siano almeno 11 elementi
+                    lines.add(elements); // Aggiungo la riga al set
+                } else {
+                    System.out.println("Riga con formato errato: " + line);
+                }
             }
             scan.close();
-            //ora lavoro sul set
-            PrintWriter writer = new PrintWriter("Data/users.csv");
-            for(String[] s : line){
-                if (s[0].equals(loggedUtente.getUsername()) && s[1].equals(loggedUtente.getPassword()) && s[2].equals(loggedUtente.getEmail())){ // eseguo il check sull'utente
-                    s = loggedUtente.onFile().split(","); // aggiorno la riga
+
+        // Ora lavoro sul set
+            File outputFile = new File("Learn - program/src/Data/users.csv");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            for (String[] s : lines) {
+                if (s[0].equals(loggedUtente.getUsername()) && s[1].equals(loggedUtente.getPassword()) && s[2].equals(loggedUtente.getEmail())) { // Eseguo il check sull'utente
+                    s = loggedUtente.onFile().split(","); // Aggiorno la riga
                 }
-                writer.println(s);
-            }
+            // Controllo che l'array s abbia almeno 11 elementi prima di accedere agli indici
+                if (s.length >= 11) {
+                    writer.write(s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4] + "," + s[5] + "," + s[6] + "," + s[7] + "," + s[8]+ "," + s[9]+ "," + s[10]+ "," + s[11]);
+                    writer.newLine();
+                } else {
+                    System.out.println("Riga con formato errato dopo aggiornamento: " + String.join(",", s));
+                }
+             }
             writer.close();
 
-        }catch(Exception e){
-            System.out.println("Errore: "+e.getMessage());
-     
+        } catch (Exception e) {
+            System.out.println("Errore in save: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
 
-    }
+}

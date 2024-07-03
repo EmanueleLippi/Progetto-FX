@@ -61,7 +61,7 @@ public class Utente {
     }
 
     public String onFile(){
-        return this.username + "," + this.email + "," + this.password+","+score[0]+","+score[1]+","+score[2]+","+score[3]+","+score[4]+","+score[5]+","+score[6]+","+score[7]+","+score[8];
+        return this.username + "," + this.password + "," + this.email+","+score[0]+","+score[1]+","+score[2]+","+score[3]+","+score[4]+","+score[5]+","+score[6]+","+score[7]+","+score[8];
     }
 
     public void loadFile(String user,String email, String password) {
