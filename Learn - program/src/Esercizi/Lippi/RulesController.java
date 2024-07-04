@@ -19,7 +19,7 @@ public class RulesController {
 
     @FXML private void goCosaStampa(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CosaStampaBeta.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("cosa_stampa_text_Area.fxml"));
             Parent cosaStampa = loader.load();
             CosaStampaController cosaStampaController = loader.getController();
             cosaStampaController.setUtente(this.utente);

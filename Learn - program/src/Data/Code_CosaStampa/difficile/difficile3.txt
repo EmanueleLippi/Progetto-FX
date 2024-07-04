@@ -1,0 +1,21 @@
+public class Main {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        int diagonalSum1 = 0;
+        int diagonalSum2 = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            diagonalSum1 += matrix[i][i];
+            diagonalSum2 += matrix[i][matrix.length - 1 - i];
+        }
+
+        System.out.println("Diagonal 1 sum: " + diagonalSum1);
+        System.out.println("Diagonal 2 sum: " + diagonalSum2);
+        System.out.println("Sum difference: " + Math.abs(diagonalSum1 - diagonalSum2));
+    }
+}

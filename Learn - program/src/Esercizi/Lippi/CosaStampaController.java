@@ -11,12 +11,15 @@ import java.util.Set;
 
 import Esercizi.Front.FrontController;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.PrintWriter;
 
 import Login.Utente;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,15 +30,17 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class CosaStampaController implements Initializable{
     @FXML private Label nameUser;
-    @FXML private ImageView mostraimage;
+    //@FXML private ImageView mostraimage;
+    @FXML private TextArea codeTextArea;
     @FXML private TextField answer;
     @FXML private AnchorPane root; 
     @FXML private Label difficult;
@@ -65,6 +70,9 @@ public class CosaStampaController implements Initializable{
 
 
     @FXML private void loadDomanda(){
+        //Pulisco sia la textArea che il campo di risposta
+        codeTextArea.clear();
+        answer.clear();
         //determino che difficoltà devo caricare
         int[] score = this.loggedUtente.getScore();
         int k = 0; // può assumetere 0 facile, 1 medio, 2 difficile
@@ -122,36 +130,57 @@ public class CosaStampaController implements Initializable{
                 }
                 i++;
             }
-            Image image = new Image("Data/Code_CosaStampa/"+key+".JPG");
-            mostraimage.setImage(image);
+            File file = new File("Learn - Program/src/Data/Code_CosaStampa/"+key);
+            scanner = new Scanner(file);
+            String code = "";
+            while(scanner.hasNextLine()){
+                code += scanner.nextLine() + "\n";
+            }
+            scanner.close();
+            //Image image = new Image("Data/Code_CosaStampa/"+key+".JPG");
+            //mostraimage.setImage(image);
+            if (score[2] == 1) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Complimenti hai completato il livello difficile!");
+                alert.setHeaderText("Fine di CosaStampa!");
+                alert.setContentText("Ora puoi tornare al menu principale, ricordati di salvare i progressi!");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK){
+                    // Procedi con l'azione
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+                    try{
+                        Parent root = loader.load();
+                        FrontController frontController = loader.getController();
+                        frontController.setUtente(loggedUtente);
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) this.root.getScene().getWindow(); //prova
+                        stage.setScene(scene);
+                        stage.show();
+                    }catch(Exception e){
+                        System.out.println("Errore in caricamento front da cosastampa: "+e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+    
+            }else
+                typeWriteEffect(code, codeTextArea, 50);
         }catch(Exception e){
             System.out.println("Errore: "+e.getMessage());
         }
-        //TODO: gestire quando finiscono i tre livelli di domanda
-        if (score[2] == 1) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Conferma azione");
-            alert.setHeaderText("Titolo della conferma");
-            alert.setContentText("Sei sicuro di voler procedere con questa azione?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK){
-                // Procedi con l'azione
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
-                try{
-                    Parent root = loader.load();
-                    FrontController frontController = loader.getController();
-                    frontController.setUtente(loggedUtente);
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) this.root.getScene().getWindow(); //prova
-                    stage.setScene(scene);
-                    stage.show();
-                }catch(Exception e){
-                    System.out.println("Errore in check: "+e.getMessage());
-                    e.printStackTrace();
-                }
-            }
+    }
 
-        }
+    private void typeWriteEffect(String code, TextArea textArea, int typingSpeed){
+        final int[] indx = {0};
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(
+            Duration.millis(typingSpeed), 
+            event -> {
+                if (indx[0] < code.length()) {
+                    textArea.appendText(String.valueOf(code.charAt(indx[0]++)));
+                }
+            }));
+            timeline.setCycleCount(code.length());
+            timeline.play();
     }
 
     @FXML private void checkAnswer(ActionEvent event){
@@ -194,15 +223,14 @@ public class CosaStampaController implements Initializable{
 
         // Ora lavoro sul set
             File outputFile = new File("Learn - program/src/Data/users.csv");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            PrintWriter writer = new PrintWriter(new FileWriter(outputFile));
             for (String[] s : lines) {
                 if (s[0].equals(loggedUtente.getUsername()) && s[1].equals(loggedUtente.getPassword()) && s[2].equals(loggedUtente.getEmail())) { // Eseguo il check sull'utente
                     s = loggedUtente.onFile().split(","); // Aggiorno la riga
                 }
             // Controllo che l'array s abbia almeno 11 elementi prima di accedere agli indici
                 if (s.length >= 11) {
-                    writer.write(s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4] + "," + s[5] + "," + s[6] + "," + s[7] + "," + s[8]+ "," + s[9]+ "," + s[10]+ "," + s[11]);
-                    writer.newLine();
+                    writer.println(s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4] + "," + s[5] + "," + s[6] + "," + s[7] + "," + s[8]+ "," + s[9]+ "," + s[10]+ "," + s[11]);
                 } else {
                     System.out.println("Riga con formato errato dopo aggiornamento: " + String.join(",", s));
                 }

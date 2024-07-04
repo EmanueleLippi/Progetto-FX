@@ -1,0 +1,9 @@
+public class Main {
+    public static void main(String[] args) {
+        String str = "Hello, World!";
+        String subStr = str.substring(7, 12);
+        String replacedStr = str.replace('o', '0');
+        System.out.println("subStr: " + subStr);
+        System.out.println("replacedStr: " + replacedStr);
+    }
+}
