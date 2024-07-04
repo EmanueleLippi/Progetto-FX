@@ -32,21 +32,21 @@
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;">
                     <children>
                         <Label onMouseClicked="#goRegoleCosaStampa" onMouseEntered="#move" onMouseExited="#setInitial" text="Cosa stampa?" />
-                        <Label text="Difficoltà" />
+                        <Label text="" fx:id="diffCS"/>
                         <ProgressBar fx:id="CosaStampaBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;" GridPane.columnIndex="1">
                     <children>
                         <Label onMouseClicked="#goRegoleOrdineCorretto" text="Ordina codice" />
-                        <Label text="Difficoltà" />
+                        <Label text="" fx:id="diffOC"/>
                         <ProgressBar fx:id="OrdinaCodiceBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;  -fx-padding: 10px; -fx-cursor: hand;" GridPane.rowIndex="1">
                     <children>
                         <Label text="Confronta codice" />
-                        <Label text="Difficoltà" />
+                        <Label text="" fx:id="diffCC" />
                         <ProgressBar fx:id="ConfrontaCondiceBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>

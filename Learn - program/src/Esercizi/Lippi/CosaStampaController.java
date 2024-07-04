@@ -74,10 +74,10 @@ public class CosaStampaController implements Initializable{
         codeTextArea.clear();
         answer.clear();
         //determino che difficoltà devo caricare
-        int[] score = this.loggedUtente.getScore();
+        double[] score = this.loggedUtente.getScore();
         int k = 0; // può assumetere 0 facile, 1 medio, 2 difficile
         while(k < 3){
-            if(score[k] == 0){
+            if((int)score[k] == 0){
                 break;
             }
             k++;
@@ -188,9 +188,9 @@ public class CosaStampaController implements Initializable{
         if(rispostaUtente.equals(rightAnswer)){ // controllo se la risposta è corretta
             //caso in cui sia corretta
             //Incremento il punteggio della difficoltà corrente
-            int[] score = loggedUtente.getScore();
+            double[] score = loggedUtente.getScore();
             for(int i = 0; i < 3; i++){
-                if (score[i] == 0) {
+                if ((int)score[i] == 0) {
                     loggedUtente.setScore(i); // incremento il punteggio della prima occorrenza con 0
                     break; // esco dal ciclo
                 }

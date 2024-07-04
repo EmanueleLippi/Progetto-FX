@@ -7,7 +7,7 @@ public class Utente {
     private String username;
     private String email;
     private String password;
-    private int[] score = {0,0,0,0,0,0,0,0,0};
+    private double[] score = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
     private boolean available = false;
 
     public Utente(String username, String email, String password) {
@@ -44,7 +44,7 @@ public class Utente {
         return "Welcome " + this.username;
     }
 
-    public int[] getScore() {
+    public double[] getScore() {
         return this.score;
     }
 
@@ -53,7 +53,7 @@ public class Utente {
     }
 
     public void setScore(int indx) {
-        this.score[indx] = 1;
+        this.score[indx] += 0.25;
     }
 
     public void setAvailable() {
@@ -71,15 +71,15 @@ public class Utente {
                 String[] line = scan.nextLine().split(",");
                 if (line[0].equals(user) && line[1].equals(password)) {
                     this.email = line[2];
-                    this.score[0] = Integer.parseInt(line[3]);
-                    this.score[1] = Integer.parseInt(line[4]);
-                    this.score[2] = Integer.parseInt(line[5]);
-                    this.score[3] = Integer.parseInt(line[6]);
-                    this.score[4] = Integer.parseInt(line[7]);
-                    this.score[5] = Integer.parseInt(line[8]);
-                    this.score[6] = Integer.parseInt(line[9]);
-                    this.score[7] = Integer.parseInt(line[10]);
-                    this.score[8] = Integer.parseInt(line[11]);
+                    this.score[0] = Double.parseDouble(line[3]);
+                    this.score[1] = Double.parseDouble(line[4]);
+                    this.score[2] = Double.parseDouble(line[5]);
+                    this.score[3] = Double.parseDouble(line[6]);
+                    this.score[4] = Double.parseDouble(line[7]);
+                    this.score[5] = Double.parseDouble(line[8]);
+                    this.score[6] = Double.parseDouble(line[9]);
+                    this.score[7] = Double.parseDouble(line[10]);
+                    this.score[8] = Double.parseDouble(line[11]);
                     break;
                 }
             }

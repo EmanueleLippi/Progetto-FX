@@ -29,6 +29,9 @@ import javafx.stage.Stage;
 public class FrontController implements Initializable{
 
     @FXML private Label nameUser;
+    @FXML private Label diffCS;
+    @FXML private Label diffOC;
+    @FXML private Label diffCC;
     @FXML private ProgressBar CosaStampaBar;
     @FXML private ProgressBar OrdinaCodiceBar;
     @FXML private ProgressBar ConfrontaCodiceBar;
@@ -129,14 +132,20 @@ public class FrontController implements Initializable{
     @FXML private void showProgress(){
         //progress CosaStampa
         for(int i = 0; i < 3; i++){
-            if(utente.getScore()[0] == 1){
-                CosaStampaBar.setProgress(0.33);
+            if(utente.getScore()[0] >= 0 && utente.getScore()[1] == 0 && utente.getScore()[2] == 0){
+                CosaStampaBar.setProgress(utente.getScore()[0]);
+                diffCS.setText("Facile");
+                diffCS.setStyle("-fx-text-fill: green;");
             }
-            if(utente.getScore()[1] == 1){
-                CosaStampaBar.setProgress(0.66);
+            else if(utente.getScore()[0] == 1 && utente.getScore()[1] >= 0 && utente.getScore()[2] == 0){
+                CosaStampaBar.setProgress(utente.getScore()[1]);
+                diffCS.setText("Medio");
+                diffCS.setStyle("-fx-text-fill: orange;");
             }
-            if(utente.getScore()[2] == 1){
-                CosaStampaBar.setProgress(1);
+            else{
+                CosaStampaBar.setProgress(utente.getScore()[2]);
+                diffCS.setText("Difficile");
+                diffCS.setStyle("-fx-text-fill: red;");
             }
         }
 
