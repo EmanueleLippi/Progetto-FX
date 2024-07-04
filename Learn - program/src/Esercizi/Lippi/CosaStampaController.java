@@ -195,11 +195,22 @@ public class CosaStampaController implements Initializable{
                     break; // esco dal ciclo
                 }
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Corretto!");
+            alert.setContentText("La risposta è corretta!");
+            alert.showAndWait();
             loadDomanda(); // carico una nuova domanda
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sbagliato!");
+            alert.setContentText("La risposta è sbagliata, riprova!");
+            alert.showAndWait();
+            answer.clear();
+            
         } //FIXME: gestire il caso in cui la risposta sia sbagliata
         
     }
-
+ 
     @FXML private void save(ActionEvent event) {
         try {
             File inputFile = new File("Learn - program/src/Data/users.csv");
