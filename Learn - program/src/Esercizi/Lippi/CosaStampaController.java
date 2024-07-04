@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -210,6 +211,23 @@ public class CosaStampaController implements Initializable{
 
         } catch (Exception e) {
             System.out.println("Errore in save: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML private void back(ActionEvent event){
+        //TODO: aggiungere reminder per salvare i dati dell'utente
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+            Parent front = loader.load();
+            FrontController frontController = loader.getController();
+            frontController.setUtente(this.loggedUtente);
+            Scene frontScene = new Scene(front);
+            Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow(); //prova
+            stage.setScene(frontScene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Verificato un errore nel caricamento della finestra di cosaStampa: --> " + e.getMessage());
             e.printStackTrace();
         }
     }
