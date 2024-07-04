@@ -1,3 +1,3 @@
-difficile/difficile1,21
-difficile/difficile2,22
-difficile/difficile3,23
+difficile/difficile1.txt,21
+difficile/difficile2.txt,22
+difficile/difficile3.txt,23
