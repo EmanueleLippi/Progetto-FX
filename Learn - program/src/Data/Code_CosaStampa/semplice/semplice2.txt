@@ -1,10 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        int a = 5;
-        int b = 10;
-        int c = a + b;
-        a = c - b;
-        b = c - a;
-        System.out.println("a: " + a + ", b: " + b + ", c: " + c);
+        double numero = 0.6;
+        int risultato = (int) numero;
+        System.out.println(risultato);
     }
 }

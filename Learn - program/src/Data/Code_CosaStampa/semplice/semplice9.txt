@@ -1,0 +1,7 @@
+public class Main {
+    public static void main(String[] args) {
+        String text = "abcdef";
+        char ch = text.charAt(3);
+        System.out.println(ch);
+    }
+}

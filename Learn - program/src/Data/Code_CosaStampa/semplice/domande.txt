@@ -1,3 +1,12 @@
-semplice/semplice1.txt,1
-semplice/semplice2.txt,2
-semplice/semplice3.txt,3
+semplice/semplice1.txt,Ciao Mondo
+semplice/semplice2.txt,0
+semplice/semplice3.txt,32
+semplice/semplice4.txt,Hello World
+semplice/semplice5.txt,3
+semplice/semplice6.txt,av
+semplice/semplice7.txt,0124
+semplice/semplice8.txt,30 30 30
+semplice/semplice9.txt,d
+semplice/semplice10.txt,3.5
+
+
