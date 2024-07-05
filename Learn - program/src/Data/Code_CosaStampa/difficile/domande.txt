@@ -1,3 +1,10 @@
-difficile/difficile1.txt,21
-difficile/difficile2.txt,22
-difficile/difficile3.txt,23
+difficile/difficile1.txt,120
+difficile/difficile2.txt,13
+difficile/difficile3.txt,15
+difficile/difficile4.txt,12345
+difficile/difficile5.txt,9
+difficile/difficile6.txt,4
+difficile/difficile7.txt,true
+difficile/difficile8.txt,3
+difficile/difficile9.txt,10
+difficile/difficile10.txt,java.lang.ArrayIndexOutOfBoundsException

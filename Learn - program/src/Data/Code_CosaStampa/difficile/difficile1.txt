@@ -1,17 +1,15 @@
-import java.util.Arrays;
-
 public class Main {
-    public static void main(String[] args) {
-        int[] numbers = {5, 3, 8, 1, 2};
-        Arrays.sort(numbers);
-
-        int searchIndex = Arrays.binarySearch(numbers, 3);
-        int sum = 0;
-
-        for (int number : numbers) {
-            sum += number;
+    public static int fattoriale(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * fattoriale(n - 1);
         }
+    }
 
-        System.out.println("searchIndex: " + searchIndex + ", sum: " + sum);
+    public static void main(String[] args) {
+        int numero = 5;
+        int risultato = fattoriale(numero);
+        System.out.println(risultato);
     }
 }

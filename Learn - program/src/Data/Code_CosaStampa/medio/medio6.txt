@@ -1,0 +1,10 @@
+public class Main {
+    public static void main(String[] args) {
+        int[] numeri = {1, 2, 3, 4, 5};
+        int risultato = 1;
+        for (int i = 0; i < numeri.length; i++) {
+            risultato *= numeri[i];
+        }
+        System.out.println(risultato);
+    }
+}

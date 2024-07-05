@@ -1,17 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        String text = "Java Programming";
-        char[] chars = text.toCharArray();
-        String result = "";
-
-        for (int i = 0; i < chars.length; i++) {
-            if (i % 2 == 0) {
-                result += Character.toUpperCase(chars[i]);
-            } else {
-                result += Character.toLowerCase(chars[i]);
-            }
-        }
-
-        System.out.println("result: " + result);
+        int i = 1;
+        int j = 2;
+        int k = 3;
+        i += j += k;
+        System.out.println(i + " " + j + " " + k);
     }
 }

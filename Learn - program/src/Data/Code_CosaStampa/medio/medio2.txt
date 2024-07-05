@@ -1,13 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        int x = 3;
-        int y = 5;
-        int z = 7;
-
-        x = y++ + z++;
-        y = ++z - x;
-        z = x-- + --y;
-
-        System.out.println("x: " + x + ", y: " + y + ", z: " + z);
+        String str = "racecar";
+        String reverse = new StringBuilder(str).reverse().toString();
+        boolean isPalindrome = str.equals(reverse);
+        System.out.println(isPalindrome);
     }
 }
