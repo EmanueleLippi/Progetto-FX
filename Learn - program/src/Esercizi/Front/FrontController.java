@@ -151,27 +151,39 @@ public class FrontController implements Initializable{
 
         //progress OrdinaCodice
         for(int i = 3; i < 6; i++){
-            if(utente.getScore()[3] == 1){
-                OrdinaCodiceBar.setProgress(0.33);
+            if(utente.getScore()[3] >= 0 && utente.getScore()[4] == 0 && utente.getScore()[5] == 0){
+                OrdinaCodiceBar.setProgress(utente.getScore()[3]);
+                diffOC.setText("Facile");
+                diffOC.setStyle("-fx-text-fill: green;");
             }
-            if(utente.getScore()[4] == 1){
-                OrdinaCodiceBar.setProgress(0.66);
+            else if(utente.getScore()[3] == 1 && utente.getScore()[4] >= 0 && utente.getScore()[5] == 0){
+                OrdinaCodiceBar.setProgress(utente.getScore()[4]);
+                diffOC.setText("Medio");
+                diffOC.setStyle("-fx-text-fill: orange;");
             }
-            if(utente.getScore()[5] == 1){
-                OrdinaCodiceBar.setProgress(1);
+            else{
+                OrdinaCodiceBar.setProgress(utente.getScore()[5]);
+                diffOC.setText("Difficile");
+                diffOC.setStyle("-fx-text-fill: red;");
             }
         }
 
         //progress ConfrontaCodice
         for(int i = 6; i < 9; i++){
-            if(utente.getScore()[6] == 1){
-                ConfrontaCodiceBar.setProgress(0.33);
+            if(utente.getScore()[6] >= 0 && utente.getScore()[7] == 0 && utente.getScore()[8] == 0){
+                ConfrontaCodiceBar.setProgress(utente.getScore()[6]);
+                diffCC.setText("Facile");
+                diffCC.setStyle("-fx-text-fill: green;");
             }
-            if(utente.getScore()[7] == 1){
-                ConfrontaCodiceBar.setProgress(0.66);
+            else if(utente.getScore()[6] == 1 && utente.getScore()[7] >= 0 && utente.getScore()[8] == 0){
+                ConfrontaCodiceBar.setProgress(utente.getScore()[7]);
+                diffCC.setText("Medio");
+                diffCC.setStyle("-fx-text-fill: orange;");
             }
-            if(utente.getScore()[8] == 1){
-                ConfrontaCodiceBar.setProgress(1);
+            else{
+                ConfrontaCodiceBar.setProgress(utente.getScore()[8]);
+                diffCC.setText("Difficile");
+                diffCC.setStyle("-fx-text-fill: red;");
             }
         }
 

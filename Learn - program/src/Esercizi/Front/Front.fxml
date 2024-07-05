@@ -47,7 +47,7 @@
                     <children>
                         <Label text="Confronta codice" />
                         <Label text="" fx:id="diffCC" />
-                        <ProgressBar fx:id="ConfrontaCondiceBar" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="ConfrontaCodiceBar" prefWidth="200.0" progress="0.0" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="1">
