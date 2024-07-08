@@ -65,19 +65,20 @@ public class ConfrontaCodiceController implements Initializable {
         
         switch (difficultyLevel) {
             case 1:
+                difficultyPath = "/Data/Code_ConfrontaCodice/semplice/domande.txt";
+                difficultyText = "Facile";
+                difficultyStyle = "-fx-text-fill: green;";
+                break;
+                
+            case 2:
                 difficultyPath = "/Data/Code_ConfrontaCodice/medio/domande.txt";
                 difficultyText = "Medio";
                 difficultyStyle = "-fx-text-fill: yellow;";
                 break;
-            case 2:
+            default:
                 difficultyPath = "/Data/Code_ConfrontaCodice/difficile/domande.txt";
                 difficultyText = "Difficile";
                 difficultyStyle = "-fx-text-fill: red;";
-                break;
-            default:
-                difficultyPath = "/Data/Code_ConfrontaCodice/semplice/domande.txt";
-                difficultyText = "Facile";
-                difficultyStyle = "-fx-text-fill: green;";
                 break;
         }
         
