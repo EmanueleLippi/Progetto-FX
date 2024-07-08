@@ -5,12 +5,9 @@ int numero = 10;
 if (numero % 2 == 0) {
 System.out.println(numero + " è un numero pari.");
 } else {
-System.out.println(numero + " è un numero dispari.");
-}
-}
-}
+System.out.println(numero + " è un numero dispari.");}}}
 
-ABCDEFGHIJ
+FBGADEC
 Verifica se un numero è positivo, negativo o zero
 public class PositivoNegativo {
 public static void main(String[] args) {
@@ -20,12 +17,9 @@ System.out.println(numero + " è un numero positivo.");
 } else if (numero < 0) {
 System.out.println(numero + " è un numero negativo.");
 } else {
-System.out.println(numero + " è zero.");
-}
-}
-}
+System.out.println(numero + " è zero.");}}}
 
-ABCDEFGHIJ
+CEFBDGA
 Verifica se un numero è divisibile per 3
 public class DivisibilePerTre {
 public static void main(String[] args) {
@@ -33,12 +27,9 @@ int numero = 9;
 if (numero % 3 == 0) {
 System.out.println(numero + " è divisibile per 3.");
 } else {
-System.out.println(numero + " non è divisibile per 3.");
-}
-}
-}
+System.out.println(numero + " non è divisibile per 3.");}}}
 
-ABCDEFGHIJ
+ACEGFDB
 Verifica se un numero è maggiore di 100
 public class MaggioreDiCento {
 public static void main(String[] args) {
@@ -46,9 +37,6 @@ int numero = 150;
 if (numero > 100) {
 System.out.println(numero + " è maggiore di 100.");
 } else {
-System.out.println(numero + " è minore o uguale a 100.");
-}
-}
-}
+System.out.println(numero + " è minore o uguale a 100.");}}}
 
-ABCDEFGHIJ
+BDFGECA
