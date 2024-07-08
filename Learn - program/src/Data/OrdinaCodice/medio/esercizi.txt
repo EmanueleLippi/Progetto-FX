@@ -1,5 +1,4 @@
 Stampa i numeri pari da 1 a 10
-
 public class NumeriPari {
 public static void main(String[] args) {
 for (int i = 1; i <= 10; i++) {
@@ -12,7 +11,6 @@ System.out.println(i + " è un numero pari.");
 
 ABCDEFGHIJ
 Stampa i numeri dispari da 1 a 10
-
 public class NumeriDispari {
 public static void main(String[] args) {
 for (int i = 1; i <= 10; i++) {
@@ -25,7 +23,6 @@ System.out.println(i + " è un numero dispari.");
 
 ABCDEFGHIJ
 Stampa i numeri da 1 a 10 e specifica se sono divisibili per 5
-
 public class DivisibiliPerCinque {
 public static void main(String[] args) {
 for (int i = 1; i <= 10; i++) {
@@ -38,7 +35,6 @@ System.out.println(i + " è divisibile per 5.");
 
 ABCDEFGHIJ
 Stampa i numeri da 1 a 10 e specifica se sono multipli di 3
-
 public class MultipliDiTre {
 public static void main(String[] args) {
 for (int i = 1; i <= 10; i++) {

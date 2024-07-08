@@ -1,7 +1,11 @@
 package Esercizi.Catta;
 
 import java.net.URL;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Set;
@@ -13,9 +17,7 @@ import javafx.scene.layout.GridPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import Esercizi.Front.FrontController;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -46,7 +48,8 @@ public class OrdinaCodiceController implements Initializable {
     private String difficulty = "semplice"; // Change to "medio" or "difficile" as needed
 
     private List<String> codeSegments;
-    private String OrdineCorretto;
+    private String ordineCorretto;
+    private Map<Character, String> letterToSegmentMap; // Mappa per associare lettere a segmenti di codice
 
     private Utente loggedUtente;
     private int currentExerciseIndex = 0;
@@ -81,47 +84,54 @@ public class OrdinaCodiceController implements Initializable {
                     return;
                 }
                 exerciseTitle.setText(title);
-                
+
                 // Leggi i segmenti di codice fino a trovare la riga vuota
                 codeSegments = new ArrayList<>();
                 String line;
                 while ((line = reader.readLine()) != null && !line.isEmpty()) {
                     codeSegments.add(line);
                 }
-                
+
                 // Leggi l'ordine corretto
-                OrdineCorretto = reader.readLine();
+                ordineCorretto = reader.readLine();
+
+                // Associa le lettere ai segmenti di codice
+                letterToSegmentMap = new HashMap<>();
+                for (int j = 0; j < ordineCorretto.length(); j++) {
+                    letterToSegmentMap.put(ordineCorretto.charAt(j), codeSegments.get(j));
+                }
             }
-            
-            // Se abbiamo letto i dati correttamente, mescoliamo i segmenti di codice
-            Collections.shuffle(codeSegments);
-            displayCodeSegments();
+
+            // Mescola i segmenti di codice
+            List<Map.Entry<Character, String>> shuffledSegments = new ArrayList<>(letterToSegmentMap.entrySet());
+            Collections.shuffle(shuffledSegments);
+
+            displayCodeSegments(shuffledSegments);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
 
-    private void displayCodeSegments() {
+    private void displayCodeSegments(List<Map.Entry<Character, String>> shuffledSegments) {
         codeGrid.getChildren().clear();
         codeGrid.add(exerciseTitle, 0, 0, 2, 1);
-        
-        char letter = 'A';
+
         int rowIndex = 1;
-        for (String segment : codeSegments) {
+        for (Map.Entry<Character, String> entry : shuffledSegments) {
+            char letter = entry.getKey();
+            String segment = entry.getValue();
+
             Label letterLabel = new Label(String.valueOf(letter));
             Label codeLabel = new Label(segment);
             codeGrid.add(letterLabel, 0, rowIndex);
             codeGrid.add(codeLabel, 1, rowIndex);
-            letter++;
             rowIndex++;
         }
     }
-    
 
     @FXML private void avanti() {
         String userOrder = orderInput.getText().trim().toUpperCase();
-        if (userOrder.equals(OrdineCorretto)) {
+        if (userOrder.equals(ordineCorretto)) {
             currentExerciseIndex++;
             if (currentExerciseIndex == 4) {
                 if (difficulty.equals("semplice")) {
@@ -131,14 +141,14 @@ public class OrdinaCodiceController implements Initializable {
                 }
                 currentExerciseIndex = 0;
             }
+
             double[] score = loggedUtente.getScore();
-            for(int i = 3; i < 6; i++){
-                if ((int)score[i] == 0) {
+            for (int i = 3; i < 6; i++) {
+                if ((int) score[i] == 0) {
                     loggedUtente.setScore(i); // incremento il punteggio della prima occorrenza con 0
                     break; // esco dal ciclo
                 }
             }
-
 
             loadDomanda();
         } else {
