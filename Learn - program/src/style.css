@@ -1,0 +1,142 @@
+#titolo {
+    -fx-alignment: center;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+#sottotitolo {
+    -fx-alignment: center;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+}
+
+.button{
+    -fx-background-color:  #87CEEB;
+    -fx-text-fill:  white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+
+.button:hover{
+    -fx-background-color: #00c6ff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 15, 0.5, 0, 2);
+}
+
+#label-esercizi{
+    -fx-alignment: center;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+
+#label-esercizi:hover{
+    -fx-text-fill: #00e1ff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 15, 0.5, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+#difficult{
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+
+}
+
+#utente{
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+#dietro{
+    -fx-background-color:#e6f0ff;
+}
+
+#header{
+    -fx-background-color: #b3d9ff;
+}
+
+#rules{
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+}
+
+/* style.css */
+
+.text-field,
+.password-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #999999;
+    -fx-padding: 10 15 10 15;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #66afe9;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
+}
+
+.text-field:hover,
+.password-field:hover {
+    -fx-border-color: #66afe9;
+}
+
+.text-field .text,
+.password-field .text {
+    -fx-font-family: 'Arial', sans-serif;
+}
+
+.text-field .prompt-text,
+.password-field .prompt-text {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 12px;
+}
+
+/* File: style.css */
+.code-area {
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 14px;
+    -fx-background-color: #282c34;
+    -fx-text-fill: #abb2bf;
+    -fx-padding: 10px;
+    -fx-border-color: #61afef;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0.0, 0.0);
+}
+
+.code-area .scroll-pane .corner {
+    -fx-background-color: #21252b;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .increment-button,
+.code-area .scroll-pane .scroll-bar:horizontal .decrement-button,
+.code-area .scroll-pane .scroll-bar:vertical .increment-button,
+.code-area .scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #61afef;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .thumb,
+.code-area .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #61afef;
+    -fx-background-radius: 5px;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .track,
+.code-area .scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #21252b;
+}
+
+

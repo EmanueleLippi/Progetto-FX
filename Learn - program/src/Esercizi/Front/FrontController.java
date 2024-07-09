@@ -129,22 +129,6 @@ public class FrontController implements Initializable{
     }
 }
 
-
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-    @FXML private void move(MouseEvent event){
-        Label source = (Label) event.getSource();
-        source.setStyle("-fx-background-color: #f0f0f0; -fx-width: 200;");
-    }
-
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    @FXML private void setInitial(MouseEvent event){
-        Label source = (Label) event.getSource();
-        source.setStyle("-fx-background-color: #ffffff; -fx-width: 133;");
-    }
-
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @FXML private void showProgress(){
