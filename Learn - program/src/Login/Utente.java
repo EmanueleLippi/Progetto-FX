@@ -90,4 +90,32 @@ public class Utente {
             e.printStackTrace();
         }
     }
+    // metodo per recuperare il livello di difficoltà raggiunto per l'esercizio Ordina Codice
+    public String getDiffCOrrenteOrdinaCodice() {
+        double easyScore = score[3] + score[4] + score[5];
+        double mediumScore = score[6] + score[7] + score[8];
+
+        if (easyScore == 3.0) {
+            if (mediumScore == 3.0) {
+                return "difficile";
+            }
+            return "medio";
+        }
+        return "semplice";
+    }
+    
+    // metodo per aggiornare difficoltà per l'esercizio Ordina Codice
+    public void aggiornaDiff(String diff) {
+        int startIndex = 3;
+        if (diff.equals("medio")) {
+            startIndex = 6;
+        }
+
+        for (int i = startIndex; i < startIndex + 3; i++) {
+            if (score[i] == 0) {
+                setScore(i);
+                break;
+            }
+        }
+    }
 }

@@ -1,73 +1,54 @@
 Calcola il fattoriale di un numero usando ricorsione
-
 public class Fattoriale {
-    public static void main(String[] args) {
-        int numero = 5;
-        int risultato = calcolaFattoriale(numero);
-        System.out.println("Il fattoriale di " + numero + " è " + risultato);
-    }
+public static void main(String[] args) {
+int numero = 5;
+int risultato = calcolaFattoriale(numero);
+System.out.println("Il fattoriale di " + numero + " è " + risultato);}
+public static int calcolaFattoriale(int n) {
+if (n == 0)
+return 1;
+else 
+return n * calcolaFattoriale(n - 1);}}
 
-    public static int calcolaFattoriale(int n) {
-        if (n == 0) {
-            return 1;
-        } else {
-            return n * calcolaFattoriale(n - 1);
-        }
-    }
-}
-
+AJBICHDGEF
 Calcola la somma dei numeri da 1 a n usando ricorsione
-
 public class SommaNumeri {
-    public static void main(String[] args) {
-        int numero = 5;
-        int risultato = sommaNumeri(numero);
-        System.out.println("La somma dei numeri da 1 a " + numero + " è " + risultato);
-    }
+public static void main(String[] args) {
+int numero = 5;
+int risultato = sommaNumeri(numero);
+System.out.println("La somma dei numeri da 1 a " + numero + " è " + risultato);}
+public static int sommaNumeri(int n) {
+if (n == 1) 
+return 1;
+else 
+return n + sommaNumeri(n - 1);}}
 
-    public static int sommaNumeri(int n) {
-        if (n == 1) {
-            return 1;
-        } else {
-            return n + sommaNumeri(n - 1);
-        }
-    }
-}
-
+ACEGIBDFHJ
 Calcola il massimo comune divisore (MCD) di due numeri usando ricorsione
-
 public class MassimoComuneDivisore {
-    public static void main(String[] args) {
-        int a = 48;
-        int b = 18;
-        int risultato = calcolaMCD(a, b);
-        System.out.println("Il MCD di " + a + " e " + b + " è " + risultato);
-    }
+public static void main(String[] args) {
+int a = 48;
+int b = 18;
+int risultato = calcolaMCD(a, b);
+System.out.println("Il MCD di " + a + " e " + b + " è " + risultato);}
+public static int calcolaMCD(int a, int b) {
+if (b == 0)
+return a;
+else 
+return calcolaMCD(b, a % b);}}
 
-    public static int calcolaMCD(int a, int b) {
-        if (b == 0) {
-            return a;
-        } else {
-            return calcolaMCD(b, a % b);
-        }
-    }
-}
-
+KABIJDCHGFE
 Calcola la potenza di un numero usando ricorsione
-
 public class CalcolaPotenza {
-    public static void main(String[] args) {
-        int base = 2;
-        int esponente = 3;
-        int risultato = calcolaPotenza(base, esponente);
-        System.out.println(base + " elevato alla " + esponente + " è " + risultato);
-    }
+public static void main(String[] args) {
+int base = 2;
+int esponente = 3;
+int risultato = calcolaPotenza(base, esponente);
+System.out.println(base + " elevato alla " + esponente + " è " + risultato);}
+public static int calcolaPotenza(int base, int esponente) {
+if (esponente == 0)
+return 1;
+else
+return base * calcolaPotenza(base, esponente - 1);}}
 
-    public static int calcolaPotenza(int base, int esponente) {
-        if (esponente == 0) {
-            return 1;
-        } else {
-            return base * calcolaPotenza(base, esponente - 1);
-        }
-    }
-}
+ABIJDCHGFEK

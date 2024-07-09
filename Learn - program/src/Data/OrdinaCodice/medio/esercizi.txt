@@ -1,48 +1,42 @@
-Stampa i numeri pari da 1 a 10
-public class NumeriPari {
+verifica se pari o dispari
+public class PariDispari {
 public static void main(String[] args) {
-for (int i = 1; i <= 10; i++) {
-if (i % 2 == 0) {
-System.out.println(i + " è un numero pari.");
-}
-}
-}
-}
+int numero = 10;
+if (numero % 2 == 0) {
+System.out.println(numero + " è un numero pari.");
+} else {
+System.out.println(numero + " è un numero dispari.");}}}
 
-ABCDEFGHIJ
-Stampa i numeri dispari da 1 a 10
-public class NumeriDispari {
+FBGADEC
+Verifica se un numero è positivo, negativo o zero
+public class PositivoNegativo {
 public static void main(String[] args) {
-for (int i = 1; i <= 10; i++) {
-if (i % 2 != 0) {
-System.out.println(i + " è un numero dispari.");
-}
-}
-}
-}
+int numero = -5;
+if (numero > 0) {
+System.out.println(numero + " è un numero positivo.");
+} else if (numero < 0) {
+System.out.println(numero + " è un numero negativo.");
+} else {
+System.out.println(numero + " è zero.");}}}
 
-ABCDEFGHIJ
-Stampa i numeri da 1 a 10 e specifica se sono divisibili per 5
-public class DivisibiliPerCinque {
+CEFBDGAIJ
+Verifica se un numero è divisibile per 3
+public class DivisibilePerTre {
 public static void main(String[] args) {
-for (int i = 1; i <= 10; i++) {
-if (i % 5 == 0) {
-System.out.println(i + " è divisibile per 5.");
-}
-}
-}
-}
+int numero = 9;
+if (numero % 3 == 0) {
+System.out.println(numero + " è divisibile per 3.");
+} else {
+System.out.println(numero + " non è divisibile per 3.");}}}
 
-ABCDEFGHIJ
-Stampa i numeri da 1 a 10 e specifica se sono multipli di 3
-public class MultipliDiTre {
+ACEGFDB
+Verifica se un numero è maggiore di 100
+public class MaggioreDiCento {
 public static void main(String[] args) {
-for (int i = 1; i <= 10; i++) {
-if (i % 3 == 0) {
-System.out.println(i + " è un multiplo di 3.");
-}
-}
-}
-}
+int numero = 150;
+if (numero > 100) {
+System.out.println(numero + " è maggiore di 100.");
+} else {
+System.out.println(numero + " è minore o uguale a 100.");}}}
 
-ABCDEFGHIJ
+BDFGECA

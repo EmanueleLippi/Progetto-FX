@@ -1,8 +1,10 @@
 package Esercizi.Catta;
 
+// tutti gli import per il funzionamento del controller
+
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,22 +47,25 @@ public class OrdinaCodiceController implements Initializable {
     @FXML private TextField orderInput;
     @FXML private Button handleBackButton;
     @FXML private Button handleNextButton;
-    private String difficulty = "semplice"; // Change to "medio" or "difficile" as needed
-
+    
+    private String difficulty; 
     private List<String> codeSegments;
     private String ordineCorretto;
     private Map<Character, String> letterToSegmentMap; // Mappa per associare lettere a segmenti di codice
-
     private Utente loggedUtente;
     private int currentExerciseIndex = 0;
+
+    // setta l'utente corrente e recupera la difficoltà a cui l'utente era arrivato
 
     public void setUtente(Utente utente) {
         this.loggedUtente = utente;
         nameUser.setText(utente.toString());
+        difficulty = loggedUtente.getDiffCOrrenteOrdinaCodice(); // Imposta la difficoltà corrente
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    // -----------------------------------------------------------------------------------------------------------------------------------
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
         root.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
@@ -72,6 +77,9 @@ public class OrdinaCodiceController implements Initializable {
         });
     }
 
+    // -----------------------------------------------------------------------------------------------------------------------------------
+    // metodo principale per caricare la giusta domanda in base alla difficoltà
+
     private void loadDomanda() {
         String exerciseFilePath = "Learn - Program/src/Data/OrdinaCodice/" + difficulty + "/esercizi.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(exerciseFilePath))) {
@@ -80,59 +88,96 @@ public class OrdinaCodiceController implements Initializable {
                 // Leggi il titolo dell'esercizio (prima riga)
                 String title = reader.readLine();
                 if (title == null) {
-                    // Se non ci sono più righe da leggere, esci
-                    return;
+                    return; // Se non ci sono più righe da leggere, esci
                 }
                 exerciseTitle.setText(title);
 
                 // Leggi i segmenti di codice fino a trovare la riga vuota
                 codeSegments = new ArrayList<>();
                 String line;
+                // aggiunge all'ArrayList le stringhe contenenti le parti di codice da ordinare
                 while ((line = reader.readLine()) != null && !line.isEmpty()) {
                     codeSegments.add(line);
                 }
 
-                // Leggi l'ordine corretto
+                // Recupera dal file di testo la soluzione dell'esercizio
                 ordineCorretto = reader.readLine();
 
-                // Associa le lettere ai segmenti di codice
-                letterToSegmentMap = new HashMap<>();
+
+                // Associa in maniera univoca le lettere ai segmenti di codice
+                letterToSegmentMap = new HashMap<>(); // mappa che associa ad ogni lettere maiuscola una stringa
                 for (int j = 0; j < ordineCorretto.length(); j++) {
                     letterToSegmentMap.put(ordineCorretto.charAt(j), codeSegments.get(j));
                 }
             }
 
-            // Mescola i segmenti di codice
-            List<Map.Entry<Character, String>> shuffledSegments = new ArrayList<>(letterToSegmentMap.entrySet());
-            Collections.shuffle(shuffledSegments);
+            // Ordina i segmenti di codice in ordine alfabetico
+            
+            // letterToSegmentMap.entrySet() restituisce un set di tutte le coppie chiave-valore 
+            List<Map.Entry<Character, String>> sortedSegments = new ArrayList<>(letterToSegmentMap.entrySet()); 
+            
+            // sortedSegments.sort(...) ordina la lista sortedSegments in base a un criterio specificato da Comparator
+            // confronta le chiavi Character
+            // Map.Entry::getKey restituisce la chiave di una Map.Entry
+            sortedSegments.sort(Comparator.comparing(Map.Entry::getKey));
 
-            displayCodeSegments(shuffledSegments);
+            // richiama il metodo per mostrare a schermo i segmenti
+            displayCodeSegments(sortedSegments);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // metodo per mostrare a schermo i segmenti
 
-    private void displayCodeSegments(List<Map.Entry<Character, String>> shuffledSegments) {
+    private void displayCodeSegments(List<Map.Entry<Character, String>> sortedSegments) {
         codeGrid.getChildren().clear();
+        //Aggiunge il titolo dell'esercizio alla griglia nelle colonne 0 e 1, riga 0, il titolo occupa due colonne.
         codeGrid.add(exerciseTitle, 0, 0, 2, 1);
 
         int rowIndex = 1;
-        for (Map.Entry<Character, String> entry : shuffledSegments) {
-            char letter = entry.getKey();
-            String segment = entry.getValue();
+        for (Map.Entry<Character, String> entry : sortedSegments) {
+            char letter = entry.getKey(); // Estrae la lettera dalla coppia corrente
+            String segment = entry.getValue(); // Estrae il segmento di codice dalla coppia corrente
 
+            // crea le label
             Label letterLabel = new Label(String.valueOf(letter));
             Label codeLabel = new Label(segment);
+
+            // aggiunge le label
             codeGrid.add(letterLabel, 0, rowIndex);
             codeGrid.add(codeLabel, 1, rowIndex);
             rowIndex++;
         }
     }
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // metodo richiamato quando l'utente clicca sul tasto "Avanti" presente nel file .fxml
+    
     @FXML private void avanti() {
+
+        // controlla se la sequenza di lettere dell'utente è corretta
         String userOrder = orderInput.getText().trim().toUpperCase();
         if (userOrder.equals(ordineCorretto)) {
             currentExerciseIndex++;
+            loggedUtente.aggiornaDiff(difficulty);
+
+        // Se ha completato tutti gli esercizi della modalità difficile torna alla dashboard
+        if (currentExerciseIndex == 4 && difficulty.equals("difficile")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Completato!");
+            alert.setHeaderText("Hai completato tutti gli esercizi nella modalità difficile.");
+            alert.setContentText("Ottimo lavoro!");
+
+            // Mostra l'alert e gestisci la risposta dell'utente
+            alert.showAndWait();
+
+            // Torna alla dashboard
+            tornaDashboard(new ActionEvent());
+            return;
+        }
+
+
             if (currentExerciseIndex == 4) {
                 if (difficulty.equals("semplice")) {
                     difficulty = "medio";
@@ -141,15 +186,10 @@ public class OrdinaCodiceController implements Initializable {
                 }
                 currentExerciseIndex = 0;
             }
-
-            double[] score = loggedUtente.getScore();
-            for (int i = 3; i < 6; i++) {
-                if ((int) score[i] == 0) {
-                    loggedUtente.setScore(i); // incremento il punteggio della prima occorrenza con 0
-                    break; // esco dal ciclo
-                }
-            }
-
+            // Pulisci la casella di testo
+            orderInput.clear();
+            // salva e carica la domanda successiva
+            save();
             loadDomanda();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -159,8 +199,11 @@ public class OrdinaCodiceController implements Initializable {
             alert.showAndWait();
         }
     }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // metodo per il salvataggio
 
-    @FXML private void save(ActionEvent event) {
+    @FXML private void save() {
+        // prepara il file per la lettura
         try {
             File inputFile = new File("Learn - program/src/Data/users.csv");
             if (!inputFile.exists()) {
@@ -180,7 +223,8 @@ public class OrdinaCodiceController implements Initializable {
                 }
             }
             scan.close();
-
+            
+            // prepara il file per la scrittura
             File outputFile = new File("Learn - program/src/Data/users.csv");
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
             for (String[] s : lines) {
@@ -201,6 +245,8 @@ public class OrdinaCodiceController implements Initializable {
             e.printStackTrace();
         }
     }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // metodo richiamato quando l'utente clicca sul pulsante "torna alla dashboard"
 
     @FXML private void tornaDashboard(ActionEvent event) {
         try {

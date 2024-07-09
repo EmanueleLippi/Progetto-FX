@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Catta.OrdinaCodiceController" style="-fx-background-color: white;">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Catta.OrdinaCodiceController" style="-fx-background-color: white;" prefWidth="800.0" prefHeight="600.0">
 
     <top>
-        <AnchorPane fx:id="root" prefHeight="46.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="root" prefHeight="60.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="nameUser" layoutX="14.0" layoutY="8.0" prefHeight="30.0" />
-                <Button fx:id="save" layoutX="584.0" layoutY="3.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="104.0" text="Salva" AnchorPane.rightAnchor="10.0" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
+                <Label fx:id="nameUser" layoutX="14.0" layoutY="15.0" prefHeight="30.0" />
+                <Button fx:id="save" layoutX="684.0" layoutY="15.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="104.0" text="Salva" AnchorPane.rightAnchor="10.0" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
             </children>
         </AnchorPane>
     </top>
@@ -38,8 +38,8 @@
             </padding>
             <Label text="Ordine delle lettere:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="orderInput" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Button text="Torna alla Dashboard" onAction="#tornaDashboard" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
-            <Button text="Avanti" onAction="#avanti" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
+            <Button text="Torna alla Dashboard" onAction="#tornaDashboard" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
+            <Button text="Avanti" onAction="#avanti" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;"/>
         </GridPane>
     </bottom>
 

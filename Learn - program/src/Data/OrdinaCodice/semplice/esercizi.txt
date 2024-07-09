@@ -1,42 +1,32 @@
-verifica se pari o dispari
-public class PariDispari {
+Stampa i numeri pari da 1 a 10
+public class NumeriPari {
 public static void main(String[] args) {
-int numero = 10;
-if (numero % 2 == 0) {
-System.out.println(numero + " è un numero pari.");
-} else {
-System.out.println(numero + " è un numero dispari.");}}}
+for (int i = 1; i <= 10; i++) {
+if (i % 2 == 0) 
+System.out.println(i + " è un numero pari.");}}}
 
-FBGADEC
-Verifica se un numero è positivo, negativo o zero
-public class PositivoNegativo {
+ACEDB
+Stampa i numeri dispari da 1 a 10
+public class NumeriDispari {
 public static void main(String[] args) {
-int numero = -5;
-if (numero > 0) {
-System.out.println(numero + " è un numero positivo.");
-} else if (numero < 0) {
-System.out.println(numero + " è un numero negativo.");
-} else {
-System.out.println(numero + " è zero.");}}}
+for (int i = 1; i <= 10; i++) {
+if (i % 2 != 0)
+System.out.println(i + " è un numero dispari.");}}}
 
-CEFBDGA
-Verifica se un numero è divisibile per 3
-public class DivisibilePerTre {
+DBECA
+Stampa i numeri da 1 a 10 e specifica se sono divisibili per 5
+public class DivisibiliPerCinque {
 public static void main(String[] args) {
-int numero = 9;
-if (numero % 3 == 0) {
-System.out.println(numero + " è divisibile per 3.");
-} else {
-System.out.println(numero + " non è divisibile per 3.");}}}
+for (int i = 1; i <= 10; i++) {
+if (i % 5 == 0) 
+System.out.println(i + " è divisibile per 5.");}}}
 
-ACEGFDB
-Verifica se un numero è maggiore di 100
-public class MaggioreDiCento {
+AECDB
+Stampa i numeri da 1 a 10 e specifica se sono multipli di 3
+public class MultipliDiTre {
 public static void main(String[] args) {
-int numero = 150;
-if (numero > 100) {
-System.out.println(numero + " è maggiore di 100.");
-} else {
-System.out.println(numero + " è minore o uguale a 100.");}}}
+for (int i = 1; i <= 10; i++) {
+if (i % 3 == 0) 
+System.out.println(i + " è un multiplo di 3.");}}}
 
-BDFGECA
+EADBC
