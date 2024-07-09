@@ -11,6 +11,15 @@
     -fx-text-fill: #000000;
 }
 
+.button{
+    -fx-background-color:  #87CEEB;
+    -fx-text-fill:  white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+
 .button:hover{
     -fx-background-color: #00c6ff;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 15, 0.5, 0, 2);
@@ -92,6 +101,42 @@
 .password-field .prompt-text {
     -fx-font-family: 'Arial', sans-serif;
     -fx-font-size: 12px;
+}
+
+/* File: style.css */
+.code-area {
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 14px;
+    -fx-background-color: #282c34;
+    -fx-text-fill: #abb2bf;
+    -fx-padding: 10px;
+    -fx-border-color: #61afef;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0.0, 0.0);
+}
+
+.code-area .scroll-pane .corner {
+    -fx-background-color: #21252b;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .increment-button,
+.code-area .scroll-pane .scroll-bar:horizontal .decrement-button,
+.code-area .scroll-pane .scroll-bar:vertical .increment-button,
+.code-area .scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #61afef;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .thumb,
+.code-area .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #61afef;
+    -fx-background-radius: 5px;
+}
+
+.code-area .scroll-pane .scroll-bar:horizontal .track,
+.code-area .scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #21252b;
 }
 
 
