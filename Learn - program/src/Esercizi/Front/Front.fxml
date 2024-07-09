@@ -45,7 +45,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;  -fx-padding: 10px; -fx-cursor: hand;" GridPane.rowIndex="1">
                     <children>
-                        <Label text="Confronta codice" />
+                        <Label text="Confronta codice" onMouseClicked="#goRegoleConfrontaCodice"/>
                         <Label text="" fx:id="diffCC" />
                         <ProgressBar fx:id="ConfrontaCodiceBar" prefWidth="200.0" progress="0.0" />
                     </children>

@@ -114,6 +114,24 @@ public class FrontController implements Initializable{
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+@FXML private void goRegoleConfrontaCodice(MouseEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Pontini/Rules.fxml"));
+        Parent root = loader.load();
+        Esercizi.Pontini.RulesController rulesController = loader.getController();
+        rulesController.setUtente(utente);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Label) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     @FXML private void move(MouseEvent event){
         Label source = (Label) event.getSource();
