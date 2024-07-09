@@ -16,7 +16,43 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 15, 0.5, 0, 2);
 }
 
+#label-esercizi{
+    -fx-alignment: center;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
 
+#label-esercizi:hover{
+    -fx-text-fill: #00e1ff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 15, 0.5, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+#difficult{
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+
+}
+
+#utente{
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+#dietro{
+    -fx-background-color:#e6f0ff;
+}
+
+#header{
+    -fx-background-color: #b3d9ff;
+}
+
+#rules{
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+}
 
 /* style.css */
 

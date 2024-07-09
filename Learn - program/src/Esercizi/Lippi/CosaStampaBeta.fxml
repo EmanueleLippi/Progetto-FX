@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Lippi.CosaStampaController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="701.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Lippi.CosaStampaController">
    <children>
       <AnchorPane prefHeight="46.0" prefWidth="701.0" style="-fx-background-color: grey;">
          <children>
@@ -16,13 +16,13 @@
             <Button fx:id="save" layoutX="634.0" layoutY="8.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="54.0" text="Salva" />
          </children>
       </AnchorPane>
-      <Label layoutX="26.0" layoutY="321.0" text="Cosa stampa?">
+      <Label layoutX="26.0" layoutY="314.0" text="Cosa stampa?">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Button fx:id="NextQuestion" layoutX="531.0" layoutY="362.0" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="56.0" prefWidth="156.0" text="Domanda successiva" />
-      <TextField fx:id="answer" layoutX="183.0" layoutY="322.0" prefHeight="26.0" prefWidth="185.0" />
+      <TextField fx:id="answer" layoutX="183.0" layoutY="310.0" prefHeight="26.0" prefWidth="185.0" />
       <Button fx:id="back" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#back" prefHeight="56.0" prefWidth="156.0" text="Torna alla DashBoard" />
       <TextArea fx:id="codeTextArea" editable="false" layoutY="46.0" prefHeight="248.0" prefWidth="701.0" styleClass="code-area" wrapText="true" />
    </children>
