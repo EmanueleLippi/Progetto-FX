@@ -14,7 +14,7 @@
                 <Label text="Regole dell'esercizio Ordina Codice" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
                 <VBox spacing="5.0" alignment="CENTER_LEFT">
                     <Text wrappingWidth="500.0" text="- l'utente visualizza due codici java." />
-                    <Text wrappingWidth="500.0" text="- All'utente è chiesto di scegliere il codice che ritiene più opportuno." />
+                    <Text wrappingWidth="500.0" text="- All'utente è chiesto di scegliere il codice che ritiene più opportuno inserendo 1 o 2." />
                     <Text wrappingWidth="500.0" text="- Una volta dentro l'esercizio se si esce prima di averlo completato i dati non verranno salvati." />
                     <Text wrappingWidth="500.0" text="- Una volta dentro l'esercizio se si clicca su verifica si otterrà il risultato." />
                     <Text wrappingWidth="500.0" text="PREMERE OK PER PROSEGUIRE O PREMERE ANNULLA PER TORNARE ALLA DASHBOARD" />

@@ -1,1 +1,3 @@
-semplice/semplice1.jpg,2
+semplice/semplice1,2
+semplice/semplice2,1
+semplice/semplice3,2

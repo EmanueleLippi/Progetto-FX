@@ -64,13 +64,13 @@ public class ConfrontaCodiceController implements Initializable {
         String difficultyStyle;
         
         switch (difficultyLevel) {
-            case 1:
+            case 0:
                 difficultyPath = "/Data/Code_ConfrontaCodice/semplice/domande.txt";
                 difficultyText = "Facile";
                 difficultyStyle = "-fx-text-fill: green;";
                 break;
                 
-            case 2:
+            case 1:
                 difficultyPath = "/Data/Code_ConfrontaCodice/medio/domande.txt";
                 difficultyText = "Medio";
                 difficultyStyle = "-fx-text-fill: yellow;";
