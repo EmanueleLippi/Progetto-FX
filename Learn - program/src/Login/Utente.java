@@ -90,32 +90,34 @@ public class Utente {
             e.printStackTrace();
         }
     }
-    // metodo per recuperare il livello di difficoltà raggiunto per l'esercizio Ordina Codice
     public String getDiffCOrrenteOrdinaCodice() {
-        double easyScore = score[3] + score[4] + score[5];
-        double mediumScore = score[6] + score[7] + score[8];
-
-        if (easyScore == 3.0) {
-            if (mediumScore == 3.0) {
-                return "difficile";
+        if (score[3] == 1.0) { // Verifica se il livello "semplice" è completato
+            if (score[4] == 1.0) { // Verifica se il livello "medio" è completato
+                return "difficile"; // Ritorna "difficile" se entrambi i livelli precedenti sono completati
             }
-            return "medio";
+            return "medio"; // Ritorna "medio" se solo il livello "semplice" è completato
         }
-        return "semplice";
+        return "semplice"; // Ritorna "semplice" se il livello "semplice" non è ancora completato
     }
     
-    // metodo per aggiornare difficoltà per l'esercizio Ordina Codice
+    
+    // Metodo per aggiornare difficoltà per l'esercizio Ordina Codice
     public void aggiornaDiff(String diff) {
-        int startIndex = 3;
-        if (diff.equals("medio")) {
-            startIndex = 6;
-        }
-
-        for (int i = startIndex; i < startIndex + 3; i++) {
-            if (score[i] == 0) {
-                setScore(i);
+        int index = -1;
+        switch (diff) {
+            case "semplice":
+                index = 3;
                 break;
-            }
+            case "medio":
+                index = 4;
+                break;
+            case "difficile":
+                index = 5;
+                break;
+        }
+        if (index != -1) {
+            score[index] += 0.25;
         }
     }
+    
 }

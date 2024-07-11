@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +17,6 @@ import javafx.scene.layout.GridPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
 import Esercizi.Front.FrontController;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -103,7 +100,6 @@ public class OrdinaCodiceController implements Initializable {
                 // Recupera dal file di testo la soluzione dell'esercizio
                 ordineCorretto = reader.readLine();
 
-
                 // Associa in maniera univoca le lettere ai segmenti di codice
                 letterToSegmentMap = new HashMap<>(); // mappa che associa ad ogni lettere maiuscola una stringa
                 for (int j = 0; j < ordineCorretto.length(); j++) {
@@ -155,8 +151,7 @@ public class OrdinaCodiceController implements Initializable {
     // metodo richiamato quando l'utente clicca sul tasto "Avanti" presente nel file .fxml
     
     @FXML private void avanti() {
-
-        // controlla se la sequenza di lettere dell'utente è corretta
+        // Controlla se la sequenza di lettere dell'utente è corretta
         String userOrder = orderInput.getText().trim().toUpperCase();
         if (userOrder.equals(ordineCorretto)) {
             currentExerciseIndex++;
@@ -173,12 +168,13 @@ public class OrdinaCodiceController implements Initializable {
             alert.showAndWait();
 
             // Torna alla dashboard
-            tornaDashboard(new ActionEvent());
+            Stage stage = (Stage) root.getScene().getWindow();
+            tornaDashboard(stage);
             return;
-        }
-
-
+}
+    
             if (currentExerciseIndex == 4) {
+                // Aggiorna la difficoltà solo dopo aver completato tutti e 4 gli esercizi
                 if (difficulty.equals("semplice")) {
                     difficulty = "medio";
                 } else if (difficulty.equals("medio")) {
@@ -186,9 +182,10 @@ public class OrdinaCodiceController implements Initializable {
                 }
                 currentExerciseIndex = 0;
             }
+    
             // Pulisci la casella di testo
             orderInput.clear();
-            // salva e carica la domanda successiva
+            // Salva e carica la domanda successiva
             save();
             loadDomanda();
         } else {
@@ -199,68 +196,70 @@ public class OrdinaCodiceController implements Initializable {
             alert.showAndWait();
         }
     }
+    
+    
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo per il salvataggio
 
     @FXML private void save() {
-        // prepara il file per la lettura
-        try {
-            File inputFile = new File("Learn - program/src/Data/users.csv");
-            if (!inputFile.exists()) {
-                System.out.println("Errore: il file di input non esiste.");
-                return;
-            }
-
-            Scanner scan = new Scanner(inputFile);
-            Set<String[]> lines = new HashSet<>();
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
+        // Prepara il file per la lettura
+        File inputFile = new File("Learn - program/src/Data/users.csv");
+        if (!inputFile.exists()) {
+            System.out.println("Errore: il file di input non esiste.");
+            return;
+        }
+    
+        // Prepara una lista di righe aggiornate
+        List<String> lines = new ArrayList<>();
+    
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] elements = line.split(",");
-                if (elements.length >= 11) {
-                    lines.add(elements);
+                if (elements.length >= 12) {
+                    if (elements[0].equals(loggedUtente.getUsername()) && elements[1].equals(loggedUtente.getPassword()) && elements[2].equals(loggedUtente.getEmail())) {
+                        // Aggiorna la linea dell'utente loggato
+                        elements = loggedUtente.onFile().split(",");
+                    }
+                    lines.add(String.join(",", elements));
                 } else {
                     System.out.println("Riga con formato errato: " + line);
                 }
             }
-            scan.close();
-            
-            // prepara il file per la scrittura
-            File outputFile = new File("Learn - program/src/Data/users.csv");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-            for (String[] s : lines) {
-                if (s[0].equals(loggedUtente.getUsername()) && s[1].equals(loggedUtente.getPassword()) && s[2].equals(loggedUtente.getEmail())) {
-                    s = loggedUtente.onFile().split(",");
-                }
-                if (s.length >= 11) {
-                    writer.write(String.join(",", s));
-                    writer.newLine();
-                } else {
-                    System.out.println("Riga con formato errato dopo aggiornamento: " + String.join(",", s));
-                }
+        } catch (IOException e) {
+            System.out.println("Errore in save: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+    
+        // Prepara il file per la scrittura
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile))) {
+            for (String s : lines) {
+                writer.write(s);
+                writer.newLine();
             }
-            writer.close();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Errore in save: " + e.getMessage());
             e.printStackTrace();
         }
     }
+    
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo richiamato quando l'utente clicca sul pulsante "torna alla dashboard"
 
-    @FXML private void tornaDashboard(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
-            Parent front = loader.load();
-            FrontController frontController = loader.getController();
-            frontController.setUtente(this.loggedUtente);
-            Scene frontScene = new Scene(front);
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.setScene(frontScene);
-            stage.show();
-        } catch (Exception e) {
-            System.out.println("Verificato un errore nel caricamento della finestra di OrdinaCodice: --> " + e.getMessage());
-            e.printStackTrace();
-        }
+@FXML private void tornaDashboard(Stage stage) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+        Parent front = loader.load();
+        FrontController frontController = loader.getController();
+        frontController.setUtente(this.loggedUtente);
+        Scene frontScene = new Scene(front);
+        stage.setScene(frontScene);
+        stage.show();
+    } catch (Exception e) {
+        System.out.println("Verificato un errore nel caricamento della finestra di OrdinaCodice: --> " + e.getMessage());
+        e.printStackTrace();
     }
+}
+
 }
