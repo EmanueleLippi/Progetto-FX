@@ -130,7 +130,7 @@ public class ConfrontaCodiceController implements Initializable {
     @FXML private void checkAnswer(ActionEvent event) {
         if (answer.getText().equals(rightAnswer)) {
             double[] score = loggedUtente.getScore();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 6; i < 9; i++) {
                 if (score[i] == 0) {
                     loggedUtente.setScore(i);
                     break;
