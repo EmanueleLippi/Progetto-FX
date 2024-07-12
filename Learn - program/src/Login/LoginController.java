@@ -78,24 +78,6 @@ public class LoginController {
         }
     }
 
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//TODO: CHIEDERE A CATTA
-   /* 
-    // Metodo per controllare se i campi di input sono vuoti
-    private boolean checkContent() {
-        if (userName.getText().isEmpty()) { 
-            userName.setPromptText("Username richiesto"); 
-            return false; 
-        } else if (pwField.getText().isEmpty()) { 
-            pwField.setPromptText("Password richiesta");
-            return false; 
-        } else {
-            return true; // Restituisce true se entrambi i campi sono pieni
-        }
-    }
- */
-
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

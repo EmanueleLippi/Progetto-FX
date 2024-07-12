@@ -85,7 +85,6 @@ public class Utente {
             }
             scan.close();
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Errorex: " + e.getMessage());
             e.printStackTrace();
         }

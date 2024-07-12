@@ -207,7 +207,7 @@ public class CosaStampaController implements Initializable{
             alert.showAndWait();
             answer.clear();
             
-        } //FIXME: gestire il caso in cui la risposta sia sbagliata
+        }
         
     }
  
@@ -255,7 +255,6 @@ public class CosaStampaController implements Initializable{
     }
 
     @FXML private void back(ActionEvent event){
-        //TODO: aggiungere reminder per salvare i dati dell'utente
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
             Parent front = loader.load();

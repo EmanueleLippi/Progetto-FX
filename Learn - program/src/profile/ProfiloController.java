@@ -58,9 +58,6 @@ public class ProfiloController {
         stage.setScene(scene);
         stage.show();
     }
-
-    // TODO implementare il salvataggio su file dei dati una volta fatto il logout
-
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @FXML private void tornaDashboard (ActionEvent event) throws IOException {
