@@ -48,12 +48,12 @@ public class ConfrontaCodiceController implements Initializable {
 
     @FXML private void loadDomanda() {
         double[] score = this.loggedUtente.getScore();
-        int difficultyLevel = 0;
-        while (difficultyLevel < 3 && score[difficultyLevel] != 0) {
+        int difficultyLevel = 6;
+        while (difficultyLevel < 9 && (int)score[difficultyLevel] != 0) {
             difficultyLevel++;
         }
         loadQuestions(difficultyLevel);
-        if (score[2] == 1) {
+        if (score[8] == 1) {
             showCompletionAlert();
         }
     }
@@ -64,13 +64,13 @@ public class ConfrontaCodiceController implements Initializable {
         String difficultyStyle;
         
         switch (difficultyLevel) {
-            case 0:
+            case 6:
                 difficultyPath = "/Data/Code_ConfrontaCodice/semplice/domande.txt";
                 difficultyText = "Facile";
                 difficultyStyle = "-fx-text-fill: green;";
                 break;
                 
-            case 1:
+            case 7:
                 difficultyPath = "/Data/Code_ConfrontaCodice/medio/domande.txt";
                 difficultyText = "Medio";
                 difficultyStyle = "-fx-text-fill: yellow;";
@@ -125,13 +125,13 @@ public class ConfrontaCodiceController implements Initializable {
                 e.printStackTrace();
             }
         }
-    }
+    } 
 
     @FXML private void checkAnswer(ActionEvent event) {
         if (answer.getText().equals(rightAnswer)) {
             double[] score = loggedUtente.getScore();
-            for (int i = 0; i < 3; i++) {
-                if (score[i] == 0) {
+            for (int i = 6; i < 9; i++) {
+                if ((int)score[i] == 0) {
                     loggedUtente.setScore(i);
                     break;
                 }

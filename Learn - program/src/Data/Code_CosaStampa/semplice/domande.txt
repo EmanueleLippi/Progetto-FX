@@ -8,5 +8,3 @@ semplice/semplice7.txt,0124
 semplice/semplice8.txt,30 30 30
 semplice/semplice9.txt,d
 semplice/semplice10.txt,3.5
-
-
