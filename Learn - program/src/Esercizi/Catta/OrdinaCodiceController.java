@@ -166,12 +166,8 @@ public class OrdinaCodiceController implements Initializable {
 
             // Mostra l'alert e gestisci la risposta dell'utente
             alert.showAndWait();
-
-            // Torna alla dashboard
-            Stage stage = (Stage) root.getScene().getWindow();
-            tornaDashboard(stage);
             return;
-}
+        }
     
             if (currentExerciseIndex == 4) {
                 // Aggiorna la difficoltà solo dopo aver completato tutti e 4 gli esercizi
@@ -247,19 +243,20 @@ public class OrdinaCodiceController implements Initializable {
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo richiamato quando l'utente clicca sul pulsante "torna alla dashboard"
 
-@FXML private void tornaDashboard(Stage stage) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
-        Parent front = loader.load();
-        FrontController frontController = loader.getController();
-        frontController.setUtente(this.loggedUtente);
-        Scene frontScene = new Scene(front);
-        stage.setScene(frontScene);
-        stage.show();
-    } catch (Exception e) {
-        System.out.println("Verificato un errore nel caricamento della finestra di OrdinaCodice: --> " + e.getMessage());
-        e.printStackTrace();
+    @FXML private void tornaDashboard(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+            Parent front = loader.load();
+            FrontController frontController = loader.getController();
+            frontController.setUtente(this.loggedUtente);
+            Scene frontScene = new Scene(front);
+            Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow(); //prova
+            stage.setScene(frontScene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Verificato un errore nel caricamento della finestra di cosaStampa: --> " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-}
 
 }
