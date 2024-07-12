@@ -91,8 +91,8 @@ public class Utente {
         }
     }
     public String getDiffCOrrenteOrdinaCodice() {
-        if (score[3] == 1.0) { // Verifica se il livello "semplice" è completato
-            if (score[4] == 1.0) { // Verifica se il livello "medio" è completato
+        if (score[3] >= 1.0) { // Verifica se il livello "semplice" è completato
+            if (score[4] >= 1.0) { // Verifica se il livello "medio" è completato
                 return "difficile"; // Ritorna "difficile" se entrambi i livelli precedenti sono completati
             }
             return "medio"; // Ritorna "medio" se solo il livello "semplice" è completato
@@ -116,7 +116,9 @@ public class Utente {
                 break;
         }
         if (index != -1) {
-            score[index] += 0.25;
+            if(score[index] <= 0.75){
+                score[index] += 0.25;
+            }
         }
     }
     
