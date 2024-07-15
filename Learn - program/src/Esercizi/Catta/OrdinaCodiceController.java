@@ -38,26 +38,23 @@ public class OrdinaCodiceController implements Initializable {
     @FXML private TextField answer;
     @FXML private AnchorPane root;
     @FXML private Label difficult;
-    @FXML private GridPane imageGrid;
-    @FXML private GridPane codeGrid;
-    @FXML private Label exerciseTitle;
-    @FXML private TextField orderInput;
-    @FXML private Button handleBackButton;
-    @FXML private Button handleNextButton;
+    @FXML private GridPane spazioCodice;
+    @FXML private Label titoloEs;
+    @FXML private TextField input;
     
-    private String difficulty; 
-    private List<String> codeSegments;
+    private String difficolta; 
+    private List<String> segmentiCodice;
     private String ordineCorretto;
-    private Map<Character, String> letterToSegmentMap; // Mappa per associare lettere a segmenti di codice
+    private Map<Character, String> lettereSegmentiMap; // Mappa per associare lettere a segmenti di codice
     private Utente loggedUtente;
-    private int currentExerciseIndex = 0;
+    private int IndiceEsercizioCorrente = 0;
 
     // setta l'utente corrente e recupera la difficoltà a cui l'utente era arrivato
 
     public void setUtente(Utente utente) {
         this.loggedUtente = utente;
         nameUser.setText(utente.toString());
-        difficulty = loggedUtente.getDiffCOrrenteOrdinaCodice(); // Imposta la difficoltà corrente
+        difficolta = getDiffCOrrenteOrdinaCodice(); // Imposta la difficoltà corrente
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------
@@ -78,39 +75,61 @@ public class OrdinaCodiceController implements Initializable {
     // metodo principale per caricare la giusta domanda in base alla difficoltà
 
     private void loadDomanda() {
-        String exerciseFilePath = "Learn - Program/src/Data/OrdinaCodice/" + difficulty + "/esercizi.txt";
+
+        // switch che serve a mostrare a schermo la giusta difficoltà e con il giusto colore 
+
+        switch (difficolta) { 
+            case "semplice":
+                this.difficult.setText("Facile");
+                this.difficult.setStyle("-fx-text-fill: green;");
+                break;
+
+            case "medio":
+                this.difficult.setText("Medio");
+                this.difficult.setStyle("-fx-text-fill: yellow;");
+                break;
+        
+            default:
+                this.difficult.setText("Difficile");
+                this.difficult.setStyle("-fx-text-fill: red;");
+                break;
+        }
+
+        // recupera in base a difficolta il giusto file
+        String exerciseFilePath = "Learn - Program/src/Data/OrdinaCodice/" + difficolta + "/esercizi.txt";
+
         try (BufferedReader reader = new BufferedReader(new FileReader(exerciseFilePath))) {
             // Salta le righe fino all'indice corrente
-            for (int i = 0; i <= currentExerciseIndex; i++) {
+            for (int i = 0; i <= IndiceEsercizioCorrente; i++) {
                 // Leggi il titolo dell'esercizio (prima riga)
                 String title = reader.readLine();
                 if (title == null) {
                     return; // Se non ci sono più righe da leggere, esci
                 }
-                exerciseTitle.setText(title);
+                titoloEs.setText(title);
 
                 // Leggi i segmenti di codice fino a trovare la riga vuota
-                codeSegments = new ArrayList<>();
+                segmentiCodice = new ArrayList<>();
                 String line;
                 // aggiunge all'ArrayList le stringhe contenenti le parti di codice da ordinare
                 while ((line = reader.readLine()) != null && !line.isEmpty()) {
-                    codeSegments.add(line);
+                    segmentiCodice.add(line);
                 }
 
                 // Recupera dal file di testo la soluzione dell'esercizio
                 ordineCorretto = reader.readLine();
 
                 // Associa in maniera univoca le lettere ai segmenti di codice
-                letterToSegmentMap = new HashMap<>(); // mappa che associa ad ogni lettere maiuscola una stringa
+                lettereSegmentiMap = new HashMap<>(); // mappa che associa ad ogni lettere maiuscola una stringa
                 for (int j = 0; j < ordineCorretto.length(); j++) {
-                    letterToSegmentMap.put(ordineCorretto.charAt(j), codeSegments.get(j));
+                    lettereSegmentiMap.put(ordineCorretto.charAt(j), segmentiCodice.get(j));
                 }
             }
 
             // Ordina i segmenti di codice in ordine alfabetico
             
-            // letterToSegmentMap.entrySet() restituisce un set di tutte le coppie chiave-valore 
-            List<Map.Entry<Character, String>> sortedSegments = new ArrayList<>(letterToSegmentMap.entrySet()); 
+            // lettereSegmentiMap.entrySet() restituisce un set di tutte le coppie chiave-valore 
+            List<Map.Entry<Character, String>> sortedSegments = new ArrayList<>(lettereSegmentiMap.entrySet()); 
             
             // sortedSegments.sort(...) ordina la lista sortedSegments in base a un criterio specificato da Comparator
             // confronta le chiavi Character
@@ -118,7 +137,7 @@ public class OrdinaCodiceController implements Initializable {
             sortedSegments.sort(Comparator.comparing(Map.Entry::getKey));
 
             // richiama il metodo per mostrare a schermo i segmenti
-            displayCodeSegments(sortedSegments);
+            mostraSegmentiCodice(sortedSegments);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,10 +145,10 @@ public class OrdinaCodiceController implements Initializable {
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo per mostrare a schermo i segmenti
 
-    private void displayCodeSegments(List<Map.Entry<Character, String>> sortedSegments) {
-        codeGrid.getChildren().clear();
+    private void mostraSegmentiCodice(List<Map.Entry<Character, String>> sortedSegments) {
+        spazioCodice.getChildren().clear();
         //Aggiunge il titolo dell'esercizio alla griglia nelle colonne 0 e 1, riga 0, il titolo occupa due colonne.
-        codeGrid.add(exerciseTitle, 0, 0, 2, 1);
+        spazioCodice.add(titoloEs, 0, 0, 2, 1);
 
         int rowIndex = 1;
         for (Map.Entry<Character, String> entry : sortedSegments) {
@@ -141,8 +160,8 @@ public class OrdinaCodiceController implements Initializable {
             Label codeLabel = new Label(segment);
 
             // aggiunge le label
-            codeGrid.add(letterLabel, 0, rowIndex);
-            codeGrid.add(codeLabel, 1, rowIndex);
+            spazioCodice.add(letterLabel, 0, rowIndex);
+            spazioCodice.add(codeLabel, 1, rowIndex);
             rowIndex++;
         }
     }
@@ -152,13 +171,20 @@ public class OrdinaCodiceController implements Initializable {
     
     @FXML private void avanti() {
         // Controlla se la sequenza di lettere dell'utente è corretta
-        String userOrder = orderInput.getText().trim().toUpperCase();
+        String userOrder = input.getText().trim().toUpperCase();
         if (userOrder.equals(ordineCorretto)) {
-            currentExerciseIndex++;
-            loggedUtente.aggiornaDiff(difficulty);
+            // incrementa l'indice (da 1 a 4)
+            IndiceEsercizioCorrente++;
+            // aggiorna il punteggio nell'array relativo all'utente
+            aggiornaPunteggio(difficolta);
+
+            Alert alertGiusto = new Alert(Alert.AlertType.INFORMATION);
+            alertGiusto.setTitle("Corretto!");
+            alertGiusto.setContentText("La risposta è corretta!");
+            alertGiusto.showAndWait();
 
         // Se ha completato tutti gli esercizi della modalità difficile torna alla dashboard
-        if (currentExerciseIndex == 4 && difficulty.equals("difficile")) {
+        if (IndiceEsercizioCorrente == 4 && difficolta.equals("difficile")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Completato!");
             alert.setHeaderText("Hai completato tutti gli esercizi nella modalità difficile.");
@@ -169,18 +195,18 @@ public class OrdinaCodiceController implements Initializable {
             return;
         }
     
-            if (currentExerciseIndex == 4) {
-                // Aggiorna la difficoltà solo dopo aver completato tutti e 4 gli esercizi
-                if (difficulty.equals("semplice")) {
-                    difficulty = "medio";
-                } else if (difficulty.equals("medio")) {
-                    difficulty = "difficile";
-                }
-                currentExerciseIndex = 0;
+        if (IndiceEsercizioCorrente == 4) {
+            // Aggiorna la difficoltà da cui dipende la scelta dell'esercizio solo dopo aver completato tutti e 4 gli esercizi
+            if (difficolta.equals("semplice")) {
+                difficolta = "medio";
+            } else if (difficolta.equals("medio")) {
+                difficolta = "difficile";
             }
+            IndiceEsercizioCorrente = 0;
+        }
     
             // Pulisci la casella di testo
-            orderInput.clear();
+            input.clear();
             // Salva e carica la domanda successiva
             save();
             loadDomanda();
@@ -197,26 +223,31 @@ public class OrdinaCodiceController implements Initializable {
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo per il salvataggio
 
-    @FXML private void save() {
+    @FXML
+    private void save() {
         // Prepara il file per la lettura
         File inputFile = new File("Learn - program/src/Data/users.csv");
         if (!inputFile.exists()) {
+            // Controlla se il file di input esiste
             System.out.println("Errore: il file di input non esiste.");
             return;
         }
-    
         // Prepara una lista di righe aggiornate
         List<String> lines = new ArrayList<>();
     
+        // Lettura del file riga per riga
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                // Divide la riga in elementi utilizzando la virgola come delimitatore
                 String[] elements = line.split(",");
                 if (elements.length >= 12) {
+                    // Controlla se la riga corrisponde all'utente loggato
                     if (elements[0].equals(loggedUtente.getUsername()) && elements[1].equals(loggedUtente.getPassword()) && elements[2].equals(loggedUtente.getEmail())) {
-                        // Aggiorna la linea dell'utente loggato
+                        // Aggiorna la riga con le informazioni dell'utente loggato
                         elements = loggedUtente.onFile().split(",");
                     }
+                    // Aggiunge la riga aggiornata o originale alla lista
                     lines.add(String.join(",", elements));
                 } else {
                     System.out.println("Riga con formato errato: " + line);
@@ -230,6 +261,7 @@ public class OrdinaCodiceController implements Initializable {
     
         // Prepara il file per la scrittura
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile))) {
+            // Scrive ogni riga della lista nel file
             for (String s : lines) {
                 writer.write(s);
                 writer.newLine();
@@ -239,6 +271,7 @@ public class OrdinaCodiceController implements Initializable {
             e.printStackTrace();
         }
     }
+    
     
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo richiamato quando l'utente clicca sul pulsante "torna alla dashboard"
@@ -259,4 +292,41 @@ public class OrdinaCodiceController implements Initializable {
         }
     }
 
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // Metodo per ottenere la difficoltà corrente dell'utente 
+
+    private String getDiffCOrrenteOrdinaCodice() {
+        double[] score = loggedUtente.getScore();
+        if (score[3] >= 1.0) { 
+            if (score[4] >= 1.0) { 
+                return "difficile"; // Ritorna "difficile" se entrambi i livelli precedenti sono completati
+            }
+            return "medio"; // Ritorna "medio" se solo il livello "semplice" è completato
+        }
+        return "semplice"; // Ritorna "semplice" se il livello "semplice" non è ancora completato
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------
+    // Metodo per aggiornare la difficoltà 
+
+    private void aggiornaPunteggio(String diff) {
+        double[] score = loggedUtente.getScore();
+        int index = -1;
+        switch (diff) {
+            case "semplice":
+                index = 3;
+                break;
+            case "medio":
+                index = 4;
+                break;
+            case "difficile":
+                index = 5;
+                break;
+        }
+        if (index != -1) {
+            if(score[index] <= 0.75){
+                score[index] += 0.25;
+            }
+        }
+    }
 }
