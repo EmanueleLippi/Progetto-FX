@@ -1,0 +1,7 @@
+Cosa Stampa questo codice?
+public class StampaStringa{
+	public static void main(String[] args){
+		String messaggio = "Ciao Mondo";
+		System.out.println(messaggio);
+	}
+}
