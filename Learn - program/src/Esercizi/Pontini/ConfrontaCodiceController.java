@@ -27,6 +27,8 @@ public class ConfrontaCodiceController implements Initializable {
 
     private Utente loggedUtente;
     private String rightAnswer;
+    private int cont=0;
+    private List<String> questionKeys;
 
     public void setUtente(Utente utente) {
         this.loggedUtente = utente;
@@ -47,6 +49,7 @@ public class ConfrontaCodiceController implements Initializable {
     }
 
     @FXML private void loadDomanda() {
+        answer.clear();
         double[] score = this.loggedUtente.getScore();
         int difficultyLevel = 6;
         while (difficultyLevel < 9 && (int)score[difficultyLevel] != 0) {
@@ -87,29 +90,35 @@ public class ConfrontaCodiceController implements Initializable {
 
         try (InputStream stream = getClass().getResourceAsStream(difficultyPath);
              Scanner scanner = new Scanner(stream)) {
-            Map<String, String> questions = new HashMap<>();
+            Map<String, String> questions = new LinkedHashMap<>();
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split(",");
                 questions.put(line[0], line[1]);
             }
-            setRandomQuestion(questions);
+            questionKeys = new ArrayList<>(questions.keySet());
+            setQuestion(questions);
         } catch (Exception e) {
             System.out.println("Errore: " + e.getMessage());
         }
     }
 
-    private void setRandomQuestion(Map<String, String> questions) {
+    private void setQuestion(Map<String, String> questions) {
+        //controllo per ricominciare quando si supera ultimo livello della difficolta'
+        if(cont>= questionKeys.size()){
+            cont=0;   
+        }
         List<String> keys = new ArrayList<>(questions.keySet());
-        String randomKey = keys.get(new Random().nextInt(keys.size()));
-        this.rightAnswer = questions.get(randomKey);
-        mostraimage.setImage(new Image("Data/Code_ConfrontaCodice/" + randomKey + ".JPG"));
+        String questionKey = questionKeys.get(cont);
+        this.rightAnswer = questions.get(questionKey);
+        mostraimage.setImage(new Image("Data/Code_ConfrontaCodice/" + questionKey + ".JPG"));
+        cont++;  
     }
 
     private void showCompletionAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma azione");
-        alert.setHeaderText("Titolo della conferma");
-        alert.setContentText("Sei sicuro di voler procedere con questa azione?");
+        alert.setTitle("Esericizio completato");
+        alert.setHeaderText("Complimenti,hai superato tutti i livelli!");
+        alert.setContentText("Completa tutti gli altri esercizi!");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
@@ -136,7 +145,14 @@ public class ConfrontaCodiceController implements Initializable {
                     break;
                 }
             }
-            loadDomanda();
+            loadDomanda(); 
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore!");
+            alert.setContentText("La risposta è sbagliata, riprova!");
+            alert.showAndWait();
+            answer.clear();
+            
         }
     }
 

@@ -15,13 +15,13 @@
                 <VBox alignment="CENTER_LEFT" spacing="5.0">
                     <Text text="- l'utente visualizza due codici java." wrappingWidth="500.0" />
                     <Text text="- All'utente è chiesto di scegliere il codice che ritiene più opportuno inserendo 1 o 2." wrappingWidth="500.0" />
-                    <Text text="- Una volta dentro l'esercizio se si esce prima di averlo completato i dati non verranno salvati." wrappingWidth="500.0" />
-                    <Text text="- Una volta dentro l'esercizio se si clicca su verifica si otterrà il risultato." wrappingWidth="500.0" />
-                    <Text text="PREMERE OK PER PROSEGUIRE O PREMERE ANNULLA PER TORNARE ALLA DASHBOARD" wrappingWidth="500.0" />
+                    <Text text="- Salva i tuoi progressi tramite il tasto apposito altrimenti andranno persi." wrappingWidth="500.0" />
+                    <Text text="- Completa 4 esercizi per passare al livello successivo." wrappingWidth="500.0" />
+                    <Text text="Premere INIZIAMO per incominciare oppure premere ANNULLA per tornare indietro" wrappingWidth="500.0" />
                 </VBox>
-                <HBox alignment="CENTER" spacing="20.0">
-                    <Button onAction="#IniziaEsercizio" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" text="OK" />
-                    <Button onAction="#tornaDashboard" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" text="ANNULLA" />
+                <HBox alignment="CENTER" spacing="270.0">
+                    <Button onAction="#tornaDashboard" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" text="Annulla" />
+                    <Button onAction="#IniziaEsercizio" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" text="Iniziamo" />
                 </HBox>
             </children>
         </VBox>

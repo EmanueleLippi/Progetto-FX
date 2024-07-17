@@ -1,3 +1,4 @@
-medio/medio1,2
+medio/medio1,1
 medio/medio2,1
-medio/medio3,1
+medio/medio3,2
+medio/medio4,1
