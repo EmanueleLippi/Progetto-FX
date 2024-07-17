@@ -48,7 +48,8 @@ public class FrontController implements Initializable{
                 newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
                     if (newWindow != null) {
                         showProgress();  // Chiamare showprogress quando la finestra è mostrata
-                        mostraTestFinale(); // chiamato per vedere se l'utente ha completato tutti i test
+                        //TODO: ACTIVE
+                        //mostraTestFinale(); // chiamato per vedere se l'utente ha completato tutti i test
                     }
                 });
             }
@@ -64,11 +65,11 @@ public class FrontController implements Initializable{
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    @FXML private void mostraTestFinale(){
+    /*@FXML private void mostraTestFinale(){
         if(utente.getScore()[0] == 1 && utente.getScore()[1] == 1 && utente.getScore()[2] == 1 && utente.getScore()[3] == 1 && utente.getScore()[4] == 1 && utente.getScore()[5] == 1 && utente.getScore()[6] == 1 && utente.getScore()[7] == 1 && utente.getScore()[8] == 1){
             buttonTest.setVisible(true);
         }
-    }
+    }*/
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

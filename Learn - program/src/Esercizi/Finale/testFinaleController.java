@@ -16,10 +16,18 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.InternetAddress;
+
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -36,7 +44,7 @@ public class testFinaleController implements Initializable {
     private ToggleGroup Answer;
     private Utente utente;
     private HashMap<String, Boolean> es_punteggio = new HashMap<>();  //lista di esercizi si può fare? o meglio map?
-    private RadioButton rispostaCorretta;
+    private int rispostaCorretta; //è l'indice della risposta corretta
 
     public void setUtente(Utente user){
         this.utente = user;
@@ -74,19 +82,23 @@ public class testFinaleController implements Initializable {
         //così pulisco tutta la videata
         codeTextArea.clear();
         ans1.setSelected(false);
+        ans1.setText("");
         ans2.setSelected(false);
+        ans2.setText("");
         ans3.setSelected(false);
+        ans3.setText("");
         ans4.setSelected(false);
+        ans4.setText("");
 
         //qui devo caricare l'esercizio da risolvere
         try{
-            Scanner scan = new Scanner(new File("/Data/Code_VerificaFinale/domande.txt"));
+            Scanner scan = new Scanner(new File("Learn - program/src/Data/Code_VerificaFinale/domande.txt"));
             HashMap<String, List<String>> dom_risp = new HashMap<>(); //per tenere traccia delle domande e relative risposte
             ArrayList<Integer> indx_risp = new ArrayList<>();
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
-                String[] token = line.split(",");
-                String[] separaScelte = token[1].split("#");
+                String[] token = line.split(",");//separa soluzioni domanda e indx risposta corretta
+                String[] separaScelte = token[1].split("#");//questo è l'insieme della soluzioni
                 indx_risp.add(Integer.parseInt(token[2]));
 
                 dom_risp.put(token[0], Arrays.asList(separaScelte));
@@ -99,7 +111,7 @@ public class testFinaleController implements Initializable {
             while (it.hasNext()) {
                 key = it.next();
                 if (i == random) {
-                    this.rispostaCorretta = indx_risp.get(i) == 1 ? ans1 : indx_risp.get(i) == 2 ? ans2 : indx_risp.get(i) == 3 ? ans3 : ans4;
+                    this.rispostaCorretta = indx_risp.get(i);
                     //mostrare le opzioni di risposta
                     ans1.setText(dom_risp.get(key).get(0));
                     ans2.setText(dom_risp.get(key).get(1));
@@ -108,7 +120,7 @@ public class testFinaleController implements Initializable {
                     break;
                 }
             }
-            File file = new File("Learn - Program/src/Data/Code_CosaStampa/"+key);
+            File file = new File("Learn - Program/src/Data/Code_VerificaFinale/"+key);
             scan = new Scanner(file);
             String code = "";
             while(scan.hasNextLine()){
@@ -144,35 +156,41 @@ public class testFinaleController implements Initializable {
     }
 
     @FXML private void checkAnswer(ActionEvent event){
-        if (Answer.getSelectedToggle() == rispostaCorretta && Answer.getSelectedToggle() != null){
-            es_punteggio.put(codeTextArea.getText(), true); 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Risposta Corretta");
-            alert.setHeaderText("Complimenti");
-            alert.setContentText("Risposta corretta, continua così!");
-            alert.showAndWait();
-            if (es_punteggio.size() <= 10) { //si prevede che il test finale sia di 10 domande
-                loadEsercizio();
-            }
-            else{ // quando si concludono le 10 domande
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Complimenti");
-                alert2.setHeaderText("Hai completato il test");
-                alert2.setContentText("Hai completato il test, clicca su OK per vedere il tuo punteggio");
-                alert2.showAndWait();
-                int punteggio = 0;
-                for (Boolean value : es_punteggio.values()) {
-                    if (value == true) {
-                        punteggio++;
-                    }
+        RadioButton selectedRadioButton = (RadioButton) Answer.getSelectedToggle();
+        if (selectedRadioButton != null ){
+            int selectedIndx = Answer.getToggles().indexOf(selectedRadioButton);
+            if (selectedIndx == rispostaCorretta) {
+                es_punteggio.put(codeTextArea.getText(), true); 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Risposta Corretta");
+                alert.setHeaderText("Complimenti");
+                alert.setContentText("Risposta corretta, continua così!");
+                alert.showAndWait();
+                if (es_punteggio.size() < 10) { //si prevede che il test finale sia di 10 domande
+                    loadEsercizio();
                 }
-                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
-                alert3.setTitle("Punteggio");
-                alert3.setHeaderText("Il tuo punteggio è: " + punteggio + "/10");
-                alert3.setContentText("Complimenti, hai completato il test con successo!");
-                alert3.showAndWait();
+                else{ // quando si concludono le 10 domande
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Fine Test");
+                    alert2.setHeaderText("Hai completato il test");
+                    alert2.setContentText("Hai completato il test, clicca su OK e guarda la posta elettronica per il tuo punteggio");
+                    alert2.showAndWait();
+                    int punteggio = 0;
+                    for (Boolean value : es_punteggio.values()) {
+                        if (value == true) {
+                            punteggio++;
+                        }
+                    }
                 //TODO --> INVIARE UNA MAIL ALL'UTENTE CON IL PUNTEGGIO
+                String destinatario = utente.getEmail();
+                String oggetto = "Punteggio Test Finale";
+                String contenuto = "Complimenti hai completato il test finale con un punteggio di: " + punteggio + " su 10";
+                //invio mail
+                sendEmail(destinatario, oggetto, contenuto);
+
             }
+            }
+            
             
         }
         else{
@@ -183,6 +201,45 @@ public class testFinaleController implements Initializable {
             alert.setContentText("Risposta errata, riprova!");
             alert.showAndWait();
             loadEsercizio();
+        }
+    }
+
+    //metodo per inviare una mail
+    private void sendEmail(String destinatario, String oggetto, String contenuto){
+        //TODO --> IMPLEMENTARE L'INVIO DI UNA MAIL
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+        //autenticazione utente
+        String username = "dscwebconsulting@gmail.com";
+        String password = "DioScalzo2024";
+
+        //creazione di una sessione
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        //creazione dell'email
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+            message.setSubject(oggetto);
+            message.setText(contenuto);
+
+            //invio dell'email
+            javax.mail.Transport.send(message);
+            System.out.println("Email inviata con successo");
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Errore nell'invio dell'email");
+            e.printStackTrace();
         }
     }
 

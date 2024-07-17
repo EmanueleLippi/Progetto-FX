@@ -52,7 +52,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-padding: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Button fx:id="buttonTest" disable="true" mnemonicParsing="false" onAction="#goFinale" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px;" text="VERIFICA FINALE" />
+                        <Button fx:id="buttonTest" mnemonicParsing="false" onAction="#goFinale" style="-fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 8px 15px;" text="VERIFICA FINALE" />
                     </children>
                 </VBox>
             </children>
