@@ -11,6 +11,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -21,6 +22,7 @@ import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+
 import javax.mail.internet.InternetAddress;
 
 import java.util.HashMap;
@@ -31,6 +33,10 @@ import java.util.Properties;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 
 public class testFinaleController implements Initializable {
     @FXML private Label nameUser;
@@ -40,7 +46,10 @@ public class testFinaleController implements Initializable {
     @FXML private RadioButton ans2;
     @FXML private RadioButton ans3;
     @FXML private RadioButton ans4;
+    @FXML private Label timerLabel;
 
+    private ScheduledExecutorService scheduler;
+    private long startTime;
     private ToggleGroup Answer;
     private Utente utente;
     private HashMap<String, Boolean> es_punteggio = new HashMap<>();  //lista di esercizi si può fare? o meglio map?
@@ -70,13 +79,41 @@ public class testFinaleController implements Initializable {
                         ans2.setToggleGroup(Answer);
                         ans3.setToggleGroup(Answer);
                         ans4.setToggleGroup(Answer);
-
+                        startTimer();
                         loadEsercizio();
                     }
                 });
             }
         });
     }
+
+
+
+    //metodo per avviare il timer
+    private void startTimer(){
+        scheduler = Executors.newScheduledThreadPool(1);
+        startTime = System.currentTimeMillis();
+        
+        scheduler.scheduleAtFixedRate(() -> {
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            long seconds = elapsedTime / 1000 % 60;
+            long minutes = elapsedTime / (1000 * 60) % 60;
+            long hours = elapsedTime / (1000 * 60 * 60);
+            
+            // Aggiornare l'interfaccia utente nel thread della piattaforma JavaFX
+            Platform.runLater(() -> {
+                timerLabel.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            });
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    //metodo per fermare il timer
+    private void stopTimer() {
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+        }
+    }
+
 
    // Metodo per caricare l'esercizio da risolvere
 private void loadEsercizio(){
@@ -170,6 +207,7 @@ private void loadEsercizio(){
                     alert2.setHeaderText("Hai completato il test");
                     alert2.setContentText("Hai completato il test, clicca su OK e guarda la posta elettronica per il tuo punteggio");
                     alert2.showAndWait();
+                    stopTimer();
                     int punteggio = 0;
                     for (Boolean value : es_punteggio.values()) {
                         if (value == true) {
@@ -179,7 +217,7 @@ private void loadEsercizio(){
                 //TODO --> INVIARE UNA MAIL ALL'UTENTE CON IL PUNTEGGIO
                 String destinatario = utente.getEmail();
                 String oggetto = "Punteggio Test Finale";
-                String contenuto = "Complimenti hai completato il test finale con un punteggio di: " + punteggio + " su 10";
+                String contenuto = "Complimenti hai completato il test finale con un punteggio di: " + punteggio + " su 10, in " + timerLabel.getText();
                 //invio mail
                 sendEmail(destinatario, oggetto, contenuto);
 
@@ -192,6 +230,7 @@ private void loadEsercizio(){
                 alert.setHeaderText("Mi dispiace");
                 alert.setContentText("Risposta errata, riprova!");
                 alert.showAndWait();
+                loadEsercizio();
             }
             
             
@@ -216,7 +255,7 @@ private void loadEsercizio(){
 
         //autenticazione utente
         String username = "dscwebconsulting@gmail.com";
-        String password = "DioScalzo2024";
+        String password = "rqeq zqme tgrg hniz";
 
         //creazione di una sessione
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -236,7 +275,10 @@ private void loadEsercizio(){
 
             //invio dell'email
             javax.mail.Transport.send(message);
-            System.out.println("Email inviata con successo");
+            
+            // Chiudi la finestra dell'applicazione
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             System.out.println("Errore nell'invio dell'email");
             e.printStackTrace();
