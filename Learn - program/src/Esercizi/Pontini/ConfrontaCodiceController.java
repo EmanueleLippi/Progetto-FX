@@ -107,7 +107,7 @@ public class ConfrontaCodiceController implements Initializable {
         if(cont>= questionKeys.size()){
             cont=0;   
         }
-        List<String> keys = new ArrayList<>(questions.keySet());
+        //List<String> keys = new ArrayList<>(questions.keySet());
         String questionKey = questionKeys.get(cont);
         this.rightAnswer = questions.get(questionKey);
         mostraimage.setImage(new Image("Data/Code_ConfrontaCodice/" + questionKey + ".JPG"));

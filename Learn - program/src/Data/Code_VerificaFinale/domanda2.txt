@@ -1,0 +1,20 @@
+Cosa Stampa questo codice?
+public class Esercizio4 {
+    public static void main(String[] args) {
+        A obj = new B();
+        System.out.println(obj.method());
+    }
+}
+
+class A {
+    String method() {
+        return "A";
+    }
+}
+
+class B extends A {
+    @Override
+    String method() {
+        return "B";
+    }
+}

@@ -1,0 +1,6 @@
+Qual è la differenza tra == e .equals() quando si confrontano oggetti in Java?
+
+A) == confronta l'uguaglianza degli oggetti per riferimento, mentre .equals() confronta il contenuto degli oggetti.
+B) == è utilizzato solo per confrontare tipi primitivi, mentre .equals() è per oggetti.
+C) == e .equals() sono intercambiabili e non c'è differenza tra loro.
+D) == e .equals() sono utilizzati solo per oggetti e sono equivalenti per il confronto degli oggetti.

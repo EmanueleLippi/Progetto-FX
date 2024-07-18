@@ -1,7 +1,18 @@
 Cosa Stampa questo codice?
-public class StampaStringa{
-	public static void main(String[] args){
-		String messaggio = "Ciao Mondo";
-		System.out.println(messaggio);
-	}
+public class Esercizio1 {
+    public static void main(String[] args) {
+        try {
+            System.out.println(recursiveMethod(5));
+        } catch (Exception e) {
+            System.out.println("Exception caught");
+        }
+    }
+
+    public static int recursiveMethod(int n) throws Exception {
+        if (n == 0) {
+            throw new Exception("Base case exception");
+        }
+        return n + recursiveMethod(n - 1);
+    }
 }
+

@@ -29,7 +29,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 
 public class testFinaleController implements Initializable {
@@ -45,6 +45,7 @@ public class testFinaleController implements Initializable {
     private Utente utente;
     private HashMap<String, Boolean> es_punteggio = new HashMap<>();  //lista di esercizi si può fare? o meglio map?
     private int rispostaCorretta; //è l'indice della risposta corretta
+    private int i = 0; //indice per scorrere le domande
 
     public void setUtente(Utente user){
         this.utente = user;
@@ -77,68 +78,62 @@ public class testFinaleController implements Initializable {
         });
     }
 
-    //metodo per caricare l'esercizio da risolvere
-    private void loadEsercizio(){
-        //così pulisco tutta la videata
-        codeTextArea.clear();
-        ans1.setSelected(false);
-        ans1.setText("");
-        ans2.setSelected(false);
-        ans2.setText("");
-        ans3.setSelected(false);
-        ans3.setText("");
-        ans4.setSelected(false);
-        ans4.setText("");
+   // Metodo per caricare l'esercizio da risolvere
+private void loadEsercizio(){
+    // Pulizia della TextArea e deselezione dei RadioButton
+    codeTextArea.clear();
+    ans1.setSelected(false);
+    ans2.setSelected(false);
+    ans3.setSelected(false);
+    ans4.setSelected(false);
 
-        //qui devo caricare l'esercizio da risolvere
-        try{
-            Scanner scan = new Scanner(new File("Learn - program/src/Data/Code_VerificaFinale/domande.txt"));
-            HashMap<String, List<String>> dom_risp = new HashMap<>(); //per tenere traccia delle domande e relative risposte
-            ArrayList<Integer> indx_risp = new ArrayList<>();
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
-                String[] token = line.split(",");//separa soluzioni domanda e indx risposta corretta
-                String[] separaScelte = token[1].split("#");//questo è l'insieme della soluzioni
-                indx_risp.add(Integer.parseInt(token[2]));
-
-                dom_risp.put(token[0], Arrays.asList(separaScelte));
-            }
-            scan.close();
-            int random = (int) (Math.random() * dom_risp.size());
-            Iterator<String> it = dom_risp.keySet().iterator();
-            int i = 0;
-            String key = "";
-            while (it.hasNext()) {
-                key = it.next();
-                if (i == random) {
-                    this.rispostaCorretta = indx_risp.get(i);
-                    //mostrare le opzioni di risposta
-                    ans1.setText(dom_risp.get(key).get(0));
-                    ans2.setText(dom_risp.get(key).get(1));
-                    ans3.setText(dom_risp.get(key).get(2));
-                    ans4.setText(dom_risp.get(key).get(3));
-                    break;
-                }
-            }
-            File file = new File("Learn - Program/src/Data/Code_VerificaFinale/"+key);
-            scan = new Scanner(file);
-            String code = "";
-            while(scan.hasNextLine()){
-                code += scan.nextLine() + "\n";
-            }
-            scan.close();
-            //se non è presente nella lista degli esercizi fatti, allora lo scrivo
-            if (!es_punteggio.containsKey(code)) {
-                typeWriteEffect(code, codeTextArea, 50);                
-            }
-
-        }catch (Exception e){
-            System.out.println("Errore try scanner file domande.txt");
-            e.printStackTrace();
+    try{
+        Scanner scan = new Scanner(new File("Learn - program/src/Data/Code_VerificaFinale/domande.txt"));
+        LinkedHashMap<String, List<String>> dom_risp = new LinkedHashMap<>(); // Mappa per tenere traccia delle domande e risposte
+        ArrayList<Integer> indx_risp = new ArrayList<>();
+        while (scan.hasNextLine()) {
+            String line = scan.nextLine();
+            String[] token = line.split(","); // Separa soluzioni domanda e indice risposta corretta
+            String[] separaScelte = token[1].split("#"); // Insieme delle soluzioni
+            indx_risp.add(Integer.parseInt(token[2]));
+            dom_risp.put(token[0], Arrays.asList(separaScelte));
         }
+        scan.close();
 
+        // Converti le chiavi in una lista ordinata
+        List<String> keys = new ArrayList<>(dom_risp.keySet());
 
+        // Verifica se l'indice è valido
+        if (i < keys.size()) {
+            String key = keys.get(i);
+            this.rispostaCorretta = indx_risp.get(i);
+
+            // Mostra le opzioni di risposta
+            ans1.setText(dom_risp.get(key).get(0));
+            ans2.setText(dom_risp.get(key).get(1));
+            ans3.setText(dom_risp.get(key).get(2));
+            ans4.setText(dom_risp.get(key).get(3));
+            i++;
+
+            // Carica il codice dell'esercizio da risolvere
+            File file = new File("Learn - Program/src/Data/Code_VerificaFinale/" + key);
+            scan = new Scanner(file);
+            StringBuilder code = new StringBuilder();
+            while (scan.hasNextLine()) {
+                code.append(scan.nextLine()).append("\n");
+            }
+            scan.close();
+
+            // Se non è presente nella lista degli esercizi fatti, lo scrive
+            if (!es_punteggio.containsKey(code.toString())) {
+                typeWriteEffect(code.toString(), codeTextArea, 5);
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("Errore nel caricamento delle domande.");
+        e.printStackTrace();
     }
+}
 
     //metodo per scrivere il codice a video
     private void typeWriteEffect(String code, TextArea textArea, int typingSpeed){
@@ -190,17 +185,24 @@ public class testFinaleController implements Initializable {
 
             }
             }
+            else{
+                es_punteggio.put(codeTextArea.getText(), false);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Risposta Errata");
+                alert.setHeaderText("Mi dispiace");
+                alert.setContentText("Risposta errata, riprova!");
+                alert.showAndWait();
+                loadEsercizio();
+            }
             
             
         }
         else{
-            es_punteggio.put(codeTextArea.getText(), false);
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Risposta Errata");
+            alert.setTitle("Selezione Risposta");
             alert.setHeaderText("Mi dispiace");
-            alert.setContentText("Risposta errata, riprova!");
+            alert.setContentText("Seleziona una risposta!");
             alert.showAndWait();
-            loadEsercizio();
         }
     }
 

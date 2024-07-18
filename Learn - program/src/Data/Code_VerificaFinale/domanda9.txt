@@ -1,0 +1,6 @@
+Cosa è il polimorfismo in Java?
+
+A) Il polimorfismo è la capacità di una classe di ereditare da più classi.
+B) Il polimorfismo consente a una classe di avere più costruttori.
+C) Il polimorfismo consente a un oggetto di essere trattato come un'istanza di una classe madre.
+D) Il polimorfismo è la capacità di una classe di avere più metodi con lo stesso nome.

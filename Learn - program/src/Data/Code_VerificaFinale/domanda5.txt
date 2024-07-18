@@ -1,0 +1,9 @@
+Metti in ordine il codice
+A }}}
+B    public static void main(String[] args) {
+C        int[] numbers = {5, 3, 8, 1, 2};
+D        Arrays.sort(numbers);
+E    for (int number : numbers) {
+F        System.out.print(number + " ");
+G public class SortNumbers {
+H import java.util.Arrays;

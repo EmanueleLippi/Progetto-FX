@@ -1,0 +1,6 @@
+ Qual è la differenza tra interfaccia e classe astratta in Java?
+
+A) Un'interfaccia può avere implementazioni di metodi, mentre una classe astratta non può.
+B) Una classe astratta può essere istanziata direttamente, mentre un'interfaccia no.
+C) Una classe astratta può avere variabili di istanza, mentre un'interfaccia non può.
+D) Un'interfaccia può estendere più di una classe astratta.

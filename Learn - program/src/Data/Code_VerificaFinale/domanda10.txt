@@ -1,0 +1,6 @@
+Qual è il significato di "final" in Java?
+
+A) "final" indica che un metodo non può essere sovrascritto.
+B) "final" indica che una variabile può essere inizializzata solo una volta.
+C) "final" indica che una classe non può essere estesa.
+D) Tutte le precedenti.

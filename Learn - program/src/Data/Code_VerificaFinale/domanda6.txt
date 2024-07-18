@@ -1,0 +1,11 @@
+Metti in ordine il codice
+public class Fattoriale {
+public static void main(String[] args) {
+int numero = 5;
+int risultato = calcolaFattoriale(numero);
+System.out.println("Il fattoriale di " + numero + " è " + risultato);}
+public static int calcolaFattoriale(int n) {
+if (n == 0)
+return 1;
+else 
+return n * calcolaFattoriale(n - 1);}}

@@ -1,1 +1,10 @@
-domanda1.txt,Ciao Mondo#0#34#4,0
+domanda1.txt,Exception caught#0#15#Base case exception,0
+domanda2.txt,Error#0#A#B,3
+domanda3.txt,1#2#3#4,2
+domanda4.txt,1#2#3#4,0
+domanda5.txt,ABCDEFGH#CBADFEGH#ABCFGHDE#HGBCDEFA,3
+domanda6.txt,AJBICHDGEF##ABCDEFGJH#ABCDFGHJ#JHGFDCBA,0
+domanda7.txt,A#B#C#D,0
+domanda8.txt,A#B#C#D,1
+domanda9.txt,A#B#C#D,2
+domanda10.txt,A#B#C#D,3

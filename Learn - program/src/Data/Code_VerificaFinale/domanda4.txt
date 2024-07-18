@@ -1,0 +1,22 @@
+Qual'è il codice corretto?
+public class Fattoriale {								   public class Fattoriale {
+    public static void main(String[] args) {				  public static void main(String[] args) {
+        int n = 5; 										         int n = 5;
+        int fattoriale = 1;									     int fattoriale = 1;
+        for (int i = 1; i <= n; i++) {						     for (int i = 1; i < n; i++) {
+            fattoriale *= i;								          fattoriale *= i;
+        }											              }
+        System.out.println(fattoriale);			                    System.out.println(fattoriale);
+    }										                      }
+}					                                          }
+
+public class Fattoriale {								public class Fattoriale {
+    public static void main(String[] args) {				public static void main(String[] args) {
+        int n = 5; 										     int n = 5;
+        int fattoriale = 1;									 int fattoriale = 0;
+        for (int i = 2; i <= n; i++) {						for (int i = 1; i < n; i++) {
+            fattoriale *= i;								    fattoriale *= i;
+        }											        }
+        System.out.println(fattoriale);			            System.out.println(fattoriale);
+    }										                }
+}											            }
