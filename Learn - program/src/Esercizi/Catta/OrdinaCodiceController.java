@@ -73,6 +73,17 @@ public class OrdinaCodiceController implements Initializable {
 
     // -----------------------------------------------------------------------------------------------------------------------------------
     // metodo principale per caricare la giusta domanda in base alla difficoltà
+    /*
+     * Logica del metodo loadDomanda
+     * 
+     * legge la prima riga e la imposta come titolo
+     * dalla riga successiva alla prima riga vuota, aggiunge le righe in un ArrayList
+     * la riga successiva a quella vuota contiene la soluzione (l'ordine corretto delle lettere) e viene memorizzata
+     * crea una mappa che associa ogni lettera della soluzione al segmento di codice corrispondente
+     * converte la mappa in una lista e ordina gli elementi di questa lista in base all'ordine alfabetico
+     * In questo modo i segmenti saranno associati univocamente alle lettere e saranno visualizzati dall'utente in ordine alfabetico
+     * chiama il metodo mostraSegmentiCodice 
+     */
 
     private void loadDomanda() {
 
