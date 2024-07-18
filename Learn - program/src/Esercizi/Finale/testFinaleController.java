@@ -239,7 +239,6 @@ private void loadEsercizio(){
             javax.mail.Transport.send(message);
             System.out.println("Email inviata con successo");
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Errore nell'invio dell'email");
             e.printStackTrace();
         }
