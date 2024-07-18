@@ -183,7 +183,7 @@ public class OrdinaCodiceController implements Initializable {
             alertGiusto.setContentText("La risposta è corretta!");
             alertGiusto.showAndWait();
 
-        // Se ha completato tutti gli esercizi della modalità difficile torna alla dashboard
+        // Se ha completato tutti gli esercizi della modalità difficile avvisa l'utente
         if (IndiceEsercizioCorrente == 4 && difficolta.equals("difficile")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Completato!");
@@ -196,7 +196,7 @@ public class OrdinaCodiceController implements Initializable {
         }
     
         if (IndiceEsercizioCorrente == 4) {
-            // Aggiorna la difficoltà da cui dipende la scelta dell'esercizio solo dopo aver completato tutti e 4 gli esercizi
+            // Aggiorna la difficoltà da cui dipende la scelta dell'esercizio solo dopo aver completato tutti e 4 le versioni 
             if (difficolta.equals("semplice")) {
                 difficolta = "medio";
             } else if (difficolta.equals("medio")) {
