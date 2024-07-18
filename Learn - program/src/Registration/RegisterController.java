@@ -13,12 +13,35 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import Esercizi.Front.FrontController;
 import Login.Utente;
+import java.util.Scanner;
 
 public class RegisterController {
     @FXML private TextField usernameField;
     @FXML private TextField passwordField;
     @FXML private TextField confirmPasswordField;
     @FXML private TextField emailField;
+
+    @FXML private boolean check(String usernameString){
+        try {
+            File file = new File("Learn - program/src/Data/users.csv");
+            if (file.exists()) {
+                @SuppressWarnings("resource") //solo per evitare il warning
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] fields = line.split(",");
+                    if (fields[0].equals(usernameString)) {
+                        showAlert("Errore", "Username già esistente", "Cambiare la username.");
+                        usernameField.clear();
+                        return false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            showAlert("Errore", "Errore durante la registrazione", e.getMessage());
+        }
+        return true;
+    }
 
     @FXML public void registration(ActionEvent event){
         String username = usernameField.getText();
@@ -31,7 +54,7 @@ public class RegisterController {
             try {
                 // Effettua la registrazione su file CSV
                 File file = new File("Learn - program/src/Data/users.csv");
-                if (file.exists()) {
+                if (file.exists() && check(username) == true) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
                     printWriter.println(utente.onFile());

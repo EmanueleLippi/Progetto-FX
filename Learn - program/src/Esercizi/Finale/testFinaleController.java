@@ -192,7 +192,6 @@ private void loadEsercizio(){
                 alert.setHeaderText("Mi dispiace");
                 alert.setContentText("Risposta errata, riprova!");
                 alert.showAndWait();
-                loadEsercizio();
             }
             
             
