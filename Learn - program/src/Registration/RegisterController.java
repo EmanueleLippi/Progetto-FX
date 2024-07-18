@@ -80,6 +80,21 @@ public class RegisterController {
                     PrintWriter printWriter = new PrintWriter(file);
                     printWriter.println(utente.onFile());
                     printWriter.close();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
+
+                    Parent front = loader.load();
+
+                    FrontController frontController = loader.getController();
+
+                    Scene froScene = new Scene(front);
+
+                    frontController.setUtente(utente);
+
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+
+                    stage.setScene(froScene);
+
+                    stage.show();
                 }
 
             } catch (Exception e) {
