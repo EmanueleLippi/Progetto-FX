@@ -4,17 +4,19 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Utente {
-    private String username;
-    private String email;
-    private String password;
-    private double[] score = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-    private boolean available = false;
+    private String username; //istanza username
+    private String email; //istanza email
+    private String password; //istanza password
+    private double[] score = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; //istanza score per tenere traccia dei punteggi
 
+    //costuttore
     public Utente(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password; 
     }
+
+    //metodi get e set
 
     public void setUsername(String username) {
         this.username = username;
@@ -40,6 +42,8 @@ public class Utente {
         return password; 
     }
 
+    //metodo toString per stampare il benvenuto
+    @Override
     public String toString() {
         return "Welcome " + this.username;
     }
@@ -48,22 +52,17 @@ public class Utente {
         return this.score;
     }
 
-    public boolean isAvailable() {
-        return this.available;
-    }
-
+    //metodo per settare il punteggio, aggiunge 0.25 al punteggio
     public void setScore(int indx) {
         this.score[indx] += 0.25;
     }
 
-    public void setAvailable() {
-        this.available = !available;
-    }
-
+    //metodo per salvare i dati su file in un formato prestabilito
     public String onFile(){
         return this.username + "," + this.password + "," + this.email+","+score[0]+","+score[1]+","+score[2]+","+score[3]+","+score[4]+","+score[5]+","+score[6]+","+score[7]+","+score[8];
     }
 
+    //metodo per caricare i dati da file
     public void loadFile(String user,String email, String password) {
         try {
             Scanner scan = new Scanner(new File("Learn - program/src/Data/users.csv")); // Apre il file users.csv per la lettura

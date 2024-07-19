@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="header" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Lippi.RulesController">
-   <children>
-      <Label layoutX="125.0" layoutY="14.0" text="BENVENUTO IN &quot;COSA STAMPA?&quot;">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <AnchorPane id="dietro" layoutY="44.0" prefHeight="360.0" prefWidth="600.0">
-         <children>
-            <Label layoutX="221.0" layoutY="14.0" text="Ecco come funziona">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Group id="rules" layoutX="12.0" layoutY="65.0">
-               <children>
-                  <Label layoutX="2.0" prefHeight="15.0" prefWidth="584.0" text="Ti verrà mostrata una porzione di codice, e dovrai determinare quale output produrrà. Inserisci la tua " textAlignment="JUSTIFY" />
-                  <Label layoutX="2.0" layoutY="18.0" prefHeight="18.0" prefWidth="584.0" text="risposta nell'apposito campo di testo, prestando attenzione ai dettagli. " />
-                  <Label layoutX="2.0" layoutY="36.0" prefHeight="15.0" prefWidth="584.0" text="La difficoltà iniziale è impostata su &quot;Principiante&quot;. Dopo 4 risposte corrette, la difficoltà aumenterà" textAlignment="JUSTIFY" />
-                  <Label layoutY="54.0" prefWidth="584.0" text="progressivamente." textAlignment="JUSTIFY" />
-                  <Label layoutY="81.0" prefWidth="584.0" text="Ricordati di Salvare il tuo stato d'avanzamento, altrimenti i dati andranno persi" textAlignment="JUSTIFY">
-                     <font>
-                        <Font name="Calibri Bold Italic" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Group>
-            <Button layoutX="480.0" layoutY="266.0" mnemonicParsing="false" onAction="#goCosaStampa" prefHeight="53.0" prefWidth="74.0" text="Ok" />
-            <Button layoutX="43.0" layoutY="266.0" mnemonicParsing="false" onAction="#back" prefHeight="53.0" prefWidth="74.0" text="Back" />
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Esercizi.Lippi.RulesController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../style.css" style="-fx-background-color: #e6f0ff;">
+    <children>
+        <VBox alignment="CENTER" layoutX="30.0" layoutY="30.0" prefHeight="340.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20px;">
+            <children>
+                <Label text="Regole dell'esercizio Ordina Codice" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <VBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Text wrappingWidth="500.0" text=" Ti verrà mostrata una porzione di codice, e dovrai determinare quale output produrrà." />
+                    <Text wrappingWidth="500.0" text="Inserisci la tua risposta nell'apposito campo di testo, prestando attenzione ai dettagli." />
+                    <Text wrappingWidth="500.0" text="La difficoltà iniziale è impostata su Principiante, Dopo 4 risposte corrette, la difficoltà aumenterà progressivamente" />
+                    <Text wrappingWidth="500.0" text="Ricordati di Salvare il tuo stato d'avanzamento, altrimenti i dati andranno persi" />
+                </VBox>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <Button text="OK" onAction="#goCosaStampa" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" />
+                    <Button text="ANNULLA" onAction="#back" style="-fx-font-size: 14px; -fx-background-color: #87CEEB; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20px; -fx-padding: 10px 20px; -fx-cursor: hand;" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="profile.ProfiloController" spacing="20" alignment="CENTER" prefWidth="600" prefHeight="400" style="-fx-background-color: #e6f0ff; -fx-padding: 20px;">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="profile.ProfiloController" spacing="20" alignment="CENTER" prefWidth="650" prefHeight="450" style="-fx-background-color: #e6f0ff; -fx-padding: 20px;">
     <children>
         <Label text="Profilo Utente" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
         <Label fx:id="usernameLabel" text="USERNAME: " style="-fx-font-size: 16px;"/>

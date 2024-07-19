@@ -49,6 +49,7 @@ public class CosaStampaController implements Initializable{
 
     private String rightAnswer;
 
+    //metodo per settare l'utente
     public void setUtente(Utente utente){
         this.loggedUtente = utente;
         nameUser.setText(utente.toString());
@@ -69,6 +70,8 @@ public class CosaStampaController implements Initializable{
     }
 
 
+
+    //metodo per caricare la domanda
     @FXML private void loadDomanda(){
         //Pulisco sia la textArea che il campo di risposta
         codeTextArea.clear();
@@ -85,67 +88,61 @@ public class CosaStampaController implements Initializable{
         //carico le domande della difficoltà k
 
         try{
-            //Scanner scanner; 
-            InputStream stream;
+            InputStream stream; // stream per leggere il file
             switch (k) { // scanner che legge da file delle domande della giusta difficoltà
                 case 0:
-                    //scanner = new Scanner(new File("Data/Code_CosaStampa/semplice/domande.txt"));
                     stream= getClass().getResourceAsStream("/Data/Code_CosaStampa/semplice/domande.txt");
                     this.difficult.setText("Facile");
                     this.difficult.setStyle("-fx-text-fill: green;");
                     break;
 
                 case 1:
-                    //scanner = new Scanner(new File("Data/Code_CosaStampa/medio/domande.txt"));
                     stream= getClass().getResourceAsStream("/Data/Code_CosaStampa/medio/domande.txt");
                     this.difficult.setText("Medio");
                     this.difficult.setStyle("-fx-text-fill: yellow;");
                     break;
             
                 default:
-                    //scanner = new Scanner(new File("Data/Code_CosaStampa/difficile/domande.txt"));
                     stream= getClass().getResourceAsStream("/Data/Code_CosaStampa/difficile/domande.txt");
                     this.difficult.setText("Difficile");
                     this.difficult.setStyle("-fx-text-fill: red;");
                     break;
             }
-            Scanner scanner = new Scanner(stream);
-            HashMap<String, String> domande = new HashMap<>();
-            while(scanner.hasNextLine()) {
-                String lineString = scanner.nextLine();
-                String[] line = lineString.split(",");
-                domande.put(line[0], line[1]);
+            Scanner scanner = new Scanner(stream); // scanner che legge da file delle domande della giusta difficoltà
+            HashMap<String, String> domande = new HashMap<>(); // mappa per le domande
+            while(scanner.hasNextLine()) { // leggo le domande e le metto nella mappa
+                String lineString = scanner.nextLine(); // leggo la riga
+                String[] line = lineString.split(","); // divido la riga in domanda e risposta
+                domande.put(line[0], line[1]); // metto la domanda e la risposta nella mappa
             }
             scanner.close();
             
-            int random = (int)(Math.random() * domande.size());
-            Iterator<String> Iterator = domande.keySet().iterator();
-            int i = 0;
-            String key = "";
-            while(Iterator.hasNext()){
-                key = Iterator.next();
-                if(i == random){
-                    this.rightAnswer = domande.get(key);
-                    break;
+            int random = (int)(Math.random() * domande.size()); // genero un numero casuale
+            Iterator<String> Iterator = domande.keySet().iterator(); // iterator per le chiavi
+            int i = 0; // contatore
+            String key = ""; // chiave
+            while(Iterator.hasNext()){ // scorro le chiavi
+                key = Iterator.next(); // prendo la chiave
+                if(i == random){ // se il contatore è uguale al numero casuale
+                    this.rightAnswer = domande.get(key); // prendo la risposta corretta
+                    break; // esco dal ciclo
                 }
-                i++;
+                i++; // incremento il contatore
             }
-            File file = new File("Learn - Program/src/Data/Code_CosaStampa/"+key);
-            scanner = new Scanner(file);
-            String code = "";
-            while(scanner.hasNextLine()){
-                code += scanner.nextLine() + "\n";
-            }
+            File file = new File("Learn - Program/src/Data/Code_CosaStampa/"+key); // file con il codice
+            scanner = new Scanner(file); // scanner per il file
+            String code = ""; // stringa per il codice
+            while(scanner.hasNextLine()){ // leggo il codice
+                code += scanner.nextLine() + "\n"; // aggiungo la riga alla stringa
+            } 
             scanner.close();
-            //Image image = new Image("Data/Code_CosaStampa/"+key+".JPG");
-            //mostraimage.setImage(image);
-            if (score[2] == 1) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Complimenti hai completato il livello difficile!");
-                alert.setHeaderText("Fine di CosaStampa!");
+            if (score[2] == 1) { // Verifica se il livello "difficile" è completato
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION); // Alert per la fine del gioco
+                alert.setTitle("Complimenti hai completato il livello difficile!"); // Titolo dell'alert
+                alert.setHeaderText("Fine di CosaStampa!"); // Testo dell'alert
                 alert.setContentText("Ora puoi tornare al menu principale, ricordati di salvare i progressi!");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK){
+                Optional<ButtonType> result = alert.showAndWait(); // Mostra l'alert e aspetta la risposta
+                if (result.isPresent() && result.get() == ButtonType.OK){ // Verifica se l'utente ha cliccato su OK
                     // Procedi con l'azione
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
                     try{
@@ -163,26 +160,28 @@ public class CosaStampaController implements Initializable{
                 }
     
             }else
-                typeWriteEffect(code, codeTextArea, 50);
+                typeWriteEffect(code, codeTextArea, 50); // effetto di scrittura del codice
         }catch(Exception e){
             System.out.println("Errore: "+e.getMessage());
         }
     }
 
+    //metodo per l'effetto di scrittura del codice
     private void typeWriteEffect(String code, TextArea textArea, int typingSpeed){
-        final int[] indx = {0};
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(
-            Duration.millis(typingSpeed), 
-            event -> {
-                if (indx[0] < code.length()) {
-                    textArea.appendText(String.valueOf(code.charAt(indx[0]++)));
+        final int[] indx = {0}; // indice per la scrittura del codice
+        Timeline timeline = new Timeline(); // timeline per l'effetto di scrittura
+        timeline.getKeyFrames().add(new KeyFrame( // keyframe per l'effetto di scrittura
+            Duration.millis(typingSpeed), // durata del keyframe
+            event -> { // evento del keyframe
+                if (indx[0] < code.length()) { // se l'indice è minore della lunghezza del codice
+                    textArea.appendText(String.valueOf(code.charAt(indx[0]++))); // aggiungo il carattere alla textArea
                 }
             }));
-            timeline.setCycleCount(code.length());
-            timeline.play();
+            timeline.setCycleCount(code.length()); // setto il numero di cicli
+            timeline.play(); // faccio partire la timeline
     }
 
+    //metodo per controllare la risposta
     @FXML private void checkAnswer(ActionEvent event){
         String rispostaUtente = answer.getText(); // estrapolo la risposta dell'utente
         if(rispostaUtente.equals(rightAnswer)){ // controllo se la risposta è corretta
@@ -211,6 +210,7 @@ public class CosaStampaController implements Initializable{
         
     }
  
+    //metodo per salvare i progressi
     @FXML private void save(ActionEvent event) {
         try {
             File inputFile = new File("Learn - program/src/Data/users.csv");

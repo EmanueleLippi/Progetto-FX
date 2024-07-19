@@ -42,14 +42,13 @@ public class FrontController implements Initializable{
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Aggiungi un listener alla scena per chiamare loadDomanda quando la finestra viene mostrata
+        // Aggiungi un listener alla scena per chiamare showprogress e mostraTestFinale quando la finestra viene mostrata
         root.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
                     if (newWindow != null) {
                         showProgress();  // Chiamare showprogress quando la finestra è mostrata
-                        //TODO: ACTIVE
-                        //mostraTestFinale(); // chiamato per vedere se l'utente ha completato tutti i test
+                        mostraTestFinale(); // chiamato per vedere se l'utente ha completato tutti i test
                     }
                 });
             }
@@ -65,14 +64,15 @@ public class FrontController implements Initializable{
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    /*@FXML private void mostraTestFinale(){
+    //metodo per abilitare il test finale
+    @FXML private void mostraTestFinale(){
         if(utente.getScore()[0] == 1 && utente.getScore()[1] == 1 && utente.getScore()[2] == 1 && utente.getScore()[3] == 1 && utente.getScore()[4] == 1 && utente.getScore()[5] == 1 && utente.getScore()[6] == 1 && utente.getScore()[7] == 1 && utente.getScore()[8] == 1){
-            buttonTest.setVisible(true);
+            buttonTest.setDisable(false);
         }
-    }*/
+    }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+    //metodo per andare alla schermata del profilo
     @FXML private void goProfilo(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile/Profilo.fxml"));
@@ -89,7 +89,7 @@ public class FrontController implements Initializable{
     }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+    //metodo per andare alla schermata di cosaStampa rules
     @FXML private void goRegoleCosaStampa(MouseEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Lippi/Rules.fxml"));
@@ -107,7 +107,7 @@ public class FrontController implements Initializable{
     }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+//metodo per andare alla schermata di OrdinaCodice rules
 @FXML private void goRegoleOrdineCorretto(MouseEvent event) {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Catta/Rules.fxml"));
@@ -124,7 +124,7 @@ public class FrontController implements Initializable{
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+//metodo per andare alla schermata di ConfrontaCodice rules
 @FXML private void goRegoleConfrontaCodice(MouseEvent event) {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Pontini/Rules.fxml"));
@@ -141,7 +141,7 @@ public class FrontController implements Initializable{
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+    //metodo per mostrare l'avanzamento dell'utente a seconda dell'esercizio
     @FXML private void showProgress(){
         //progress CosaStampa
         for(int i = 0; i < 3; i++){
@@ -204,6 +204,7 @@ public class FrontController implements Initializable{
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//metodo per salvare i dati dell'utente
 @FXML private void salva(ActionEvent event){
                 try {
             File inputFile = new File("Learn - program/src/Data/users.csv");
@@ -212,11 +213,11 @@ public class FrontController implements Initializable{
                 return;
             }
 
-            Scanner scan = new Scanner(inputFile);
-            Set<String[]> lines = new HashSet<>();
+            Scanner scan = new Scanner(inputFile);// Apro il file users.csv per la lettura
+            Set<String[]> lines = new HashSet<>();// Creo un set per contenere le righe del file
             while (scan.hasNextLine()) {
-                String line = scan.nextLine();
-                String[] elements = line.split(",");
+                String line = scan.nextLine();// Leggo una riga
+                String[] elements = line.split(",");// Divido la riga in base alla virgola
                 if (elements.length >= 11) { // Verifica che ci siano almeno 11 elementi
                     lines.add(elements); // Aggiungo la riga al set
                 } else {
@@ -250,6 +251,7 @@ public class FrontController implements Initializable{
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//metodo per andare alla schermata del test finale
     @FXML private void goFinale(ActionEvent event){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Finale/testFinale.fxml"));

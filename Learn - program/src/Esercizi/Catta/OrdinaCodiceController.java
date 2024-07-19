@@ -4,10 +4,7 @@ package Esercizi.Catta;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,7 +42,6 @@ public class OrdinaCodiceController implements Initializable {
     private String difficolta; 
     private List<String> segmentiCodice;
     private String ordineCorretto;
-    private Map<Character, String> lettereSegmentiMap; // Mappa per associare lettere a segmenti di codice
     private Utente loggedUtente;
     private int IndiceEsercizioCorrente = 0;
 
@@ -73,17 +69,7 @@ public class OrdinaCodiceController implements Initializable {
 
     // -----------------------------------------------------------------------------------------------------------------------------------
     // metodo principale per caricare la giusta domanda in base alla difficoltà
-    /*
-     * Logica del metodo loadDomanda
-     * 
-     * legge la prima riga e la imposta come titolo
-     * dalla riga successiva alla prima riga vuota, aggiunge le righe in un ArrayList
-     * la riga successiva a quella vuota contiene la soluzione (l'ordine corretto delle lettere) e viene memorizzata
-     * crea una mappa che associa ogni lettera della soluzione al segmento di codice corrispondente
-     * converte la mappa in una lista e ordina gli elementi di questa lista in base all'ordine alfabetico
-     * In questo modo i segmenti saranno associati univocamente alle lettere e saranno visualizzati dall'utente in ordine alfabetico
-     * chiama il metodo mostraSegmentiCodice 
-     */
+
 
     private void loadDomanda() {
 
@@ -109,46 +95,28 @@ public class OrdinaCodiceController implements Initializable {
         // recupera in base a difficolta il giusto file
         String exerciseFilePath = "Learn - Program/src/Data/OrdinaCodice/" + difficolta + "/esercizi.txt";
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(exerciseFilePath))) {
-            // Salta le righe fino all'indice corrente
-            for (int i = 0; i <= IndiceEsercizioCorrente; i++) {
-                // Leggi il titolo dell'esercizio (prima riga)
-                String title = reader.readLine();
-                if (title == null) {
-                    return; // Se non ci sono più righe da leggere, esci
-                }
-                titoloEs.setText(title);
-
-                // Leggi i segmenti di codice fino a trovare la riga vuota
-                segmentiCodice = new ArrayList<>();
-                String line;
-                // aggiunge all'ArrayList le stringhe contenenti le parti di codice da ordinare
-                while ((line = reader.readLine()) != null && !line.isEmpty()) {
-                    segmentiCodice.add(line);
-                }
-
-                // Recupera dal file di testo la soluzione dell'esercizio
-                ordineCorretto = reader.readLine();
-
-                // Associa in maniera univoca le lettere ai segmenti di codice
-                lettereSegmentiMap = new HashMap<>(); // mappa che associa ad ogni lettere maiuscola una stringa
-                for (int j = 0; j < ordineCorretto.length(); j++) {
-                    lettereSegmentiMap.put(ordineCorretto.charAt(j), segmentiCodice.get(j));
-                }
+    try (BufferedReader reader = new BufferedReader(new FileReader(exerciseFilePath))) {
+        // Salta le righe fino all'indice corrente
+        for (int i = 0; i <= IndiceEsercizioCorrente; i++) {
+            // Leggi il titolo dell'esercizio (prima riga)
+            String title = reader.readLine();
+            if (title == null) {
+                return; // Se non ci sono più righe da leggere, esci
             }
+            titoloEs.setText(title);
+            // Leggi i segmenti di codice fino a trovare la riga vuota
+            segmentiCodice = new ArrayList<>();
+            String line;
+            // aggiunge all'ArrayList le stringhe contenenti le parti di codice da ordinare
+            while ((line = reader.readLine()) != null && !line.isEmpty()) {
+                segmentiCodice.add(line);
+            }
+            // Recupera dal file di testo la soluzione dell'esercizio
+            ordineCorretto = reader.readLine();
+        }
 
-            // Ordina i segmenti di codice in ordine alfabetico
-            
-            // lettereSegmentiMap.entrySet() restituisce un set di tutte le coppie chiave-valore 
-            List<Map.Entry<Character, String>> sortedSegments = new ArrayList<>(lettereSegmentiMap.entrySet()); 
-            
-            // sortedSegments.sort(...) ordina la lista sortedSegments in base a un criterio specificato da Comparator
-            // confronta le chiavi Character
-            // Map.Entry::getKey restituisce la chiave di una Map.Entry
-            sortedSegments.sort(Comparator.comparing(Map.Entry::getKey));
+        mostraSegmentiCodice(segmentiCodice);
 
-            // richiama il metodo per mostrare a schermo i segmenti
-            mostraSegmentiCodice(sortedSegments);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,26 +124,26 @@ public class OrdinaCodiceController implements Initializable {
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo per mostrare a schermo i segmenti
 
-    private void mostraSegmentiCodice(List<Map.Entry<Character, String>> sortedSegments) {
+    private void mostraSegmentiCodice(List<String> segmentiCodice) {
         spazioCodice.getChildren().clear();
-        //Aggiunge il titolo dell'esercizio alla griglia nelle colonne 0 e 1, riga 0, il titolo occupa due colonne.
+        // Aggiunge il titolo dell'esercizio alla griglia nelle colonne 0 e 1, riga 0, il titolo occupa due colonne.
         spazioCodice.add(titoloEs, 0, 0, 2, 1);
-
+    
         int rowIndex = 1;
-        for (Map.Entry<Character, String> entry : sortedSegments) {
-            char letter = entry.getKey(); // Estrae la lettera dalla coppia corrente
-            String segment = entry.getValue(); // Estrae il segmento di codice dalla coppia corrente
-
-            // crea le label
+        char letter = 'A'; // Iniziamo con la lettera 'A'
+        for (String segment : segmentiCodice) {
+            // Crea le label
             Label letterLabel = new Label(String.valueOf(letter));
             Label codeLabel = new Label(segment);
-
-            // aggiunge le label
+    
+            // Aggiunge le label alla griglia
             spazioCodice.add(letterLabel, 0, rowIndex);
             spazioCodice.add(codeLabel, 1, rowIndex);
             rowIndex++;
+            letter++; // Passa alla lettera successiva
         }
     }
+    
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------
     // metodo richiamato quando l'utente clicca sul tasto "Avanti" presente nel file .fxml
