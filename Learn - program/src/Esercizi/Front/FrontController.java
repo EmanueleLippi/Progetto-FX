@@ -66,7 +66,7 @@ public class FrontController implements Initializable{
 
     @FXML private void mostraTestFinale(){
         if(utente.getScore()[0] == 1 && utente.getScore()[1] == 1 && utente.getScore()[2] == 1 && utente.getScore()[3] == 1 && utente.getScore()[4] == 1 && utente.getScore()[5] == 1 && utente.getScore()[6] == 1 && utente.getScore()[7] == 1 && utente.getScore()[8] == 1){
-            buttonTest.setVisible(true);
+            buttonTest.setDisable(false);
         }
     }
 
