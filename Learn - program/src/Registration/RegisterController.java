@@ -21,7 +21,7 @@ public class RegisterController {
     @FXML private TextField confirmPasswordField;
     @FXML private TextField emailField;
 
-    @FXML private boolean check(String usernameString){
+    @FXML private boolean check(String usernameString){ //controlla se l'username è già presente nel file users.csv
         try {
             File file = new File("Learn - program/src/Data/users.csv");
             if (file.exists()) {
@@ -29,8 +29,8 @@ public class RegisterController {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    String[] fields = line.split(",");
-                    if (fields[0].equals(usernameString)) {
+                    String[] fields = line.split(",");//divide la linea estrapolata in base alla virgola
+                    if (fields[0].equals(usernameString)) { //controlla se l'username è già presente
                         showAlert("Errore", "Username già esistente", "Cambiare la username.");
                         usernameField.clear();
                         return false;
@@ -43,23 +43,28 @@ public class RegisterController {
         return true;
     }
 
+
+    // Registra un nuovo utente
     @FXML public void registration(ActionEvent event){
         String username = usernameField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         String email = emailField.getText();
 
+        //if che controlla se i campi sono vuoti
         if (doValidation(username, password, confirmPassword, email)) {
-            Utente utente = new Utente(username, email, password);
+            Utente utente = new Utente(username, email, password); //crea un nuovo utente
             try {
                 // Effettua la registrazione su file CSV
                 File file = new File("Learn - program/src/Data/users.csv");
+                //if che controlla se il file esiste e se l'username è già presente
                 if (file.exists() && check(username) == true) {
                     FileWriter fileWriter = new FileWriter(file, true);
                     PrintWriter printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(utente.onFile());
+                    printWriter.println(utente.onFile()); //scrive i dati dell'utente nel file in modalità append
                     printWriter.close();
 
+                    // Carica la schermata front
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
 
@@ -77,9 +82,11 @@ public class RegisterController {
 
                     stage.show();
                 } else {
-                    PrintWriter printWriter = new PrintWriter(file);
-                    printWriter.println(utente.onFile());
+                    PrintWriter printWriter = new PrintWriter(file); //crea un nuovo file
+                    printWriter.println(utente.onFile()); //scrive i dati dell'utente nel file creato
                     printWriter.close();
+
+                    // Carica la schermata front
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));
 
                     Parent front = loader.load();
@@ -103,6 +110,7 @@ public class RegisterController {
         }
     }
 
+    // Metodo che controlla se i campi sono vuoti
     private boolean doValidation(String username, String password, String confirmPassword, String email) {
         if (username.isEmpty()) {
             usernameField.setPromptText("Username is required");
@@ -127,6 +135,7 @@ public class RegisterController {
         return true;
     }
 
+    // Metodo che mostra un alert
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -135,6 +144,7 @@ public class RegisterController {
         alert.showAndWait();
     }
 
+    // Metodo che mostra la schermata di login al click del pulsante
     @FXML protected void showLogin(ActionEvent event){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login/Login.fxml"));
@@ -148,6 +158,7 @@ public class RegisterController {
         }
     }
 
+    // Metodo che mostra la schermata home al click del pulsante
     @FXML private void goToHome() {
         try {
             Parent home = FXMLLoader.load(getClass().getResource("/Home.fxml"));

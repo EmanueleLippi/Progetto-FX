@@ -13,10 +13,12 @@ import javafx.stage.Stage;
 public class RulesController {
     private Utente utente;
 
+    //metodo per settare l'utente
     public void setUtente(Utente utente){
         this.utente = utente;
     }
 
+    //metodo per andare alla finestra di cosaStampa
     @FXML private void goCosaStampa(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CosaStampaBeta.fxml"));
@@ -33,6 +35,7 @@ public class RulesController {
         }
     }
 
+    //metodo per tornare alla finestra Front
     @FXML private void back(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/Front.fxml"));

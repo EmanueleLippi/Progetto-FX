@@ -48,9 +48,9 @@ public class testFinaleController implements Initializable {
     @FXML private RadioButton ans4;
     @FXML private Label timerLabel;
 
-    private ScheduledExecutorService scheduler;
-    private long startTime;
-    private ToggleGroup Answer;
+    private ScheduledExecutorService scheduler; //per il timer
+    private long startTime; //per il timer
+    private ToggleGroup Answer; //per le risposte
     private Utente utente;
     private HashMap<String, Boolean> es_punteggio = new HashMap<>();  //lista di esercizi si può fare? o meglio map?
     private int rispostaCorretta; //è l'indice della risposta corretta
@@ -74,13 +74,13 @@ public class testFinaleController implements Initializable {
                 newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
                     if (newWindow != null) {
                         //qui da inserire le azioni da fare al caricamento della pagina
-                        this.Answer = new ToggleGroup();
+                        this.Answer = new ToggleGroup(); //crea un gruppo per i radio button
                         ans1.setToggleGroup(Answer);
                         ans2.setToggleGroup(Answer);
                         ans3.setToggleGroup(Answer);
                         ans4.setToggleGroup(Answer);
-                        startTimer();
-                        loadEsercizio();
+                        startTimer(); //avvia il timer
+                        loadEsercizio(); //carica l'esercizio da risolvere
                     }
                 });
             }
@@ -91,26 +91,26 @@ public class testFinaleController implements Initializable {
 
     //metodo per avviare il timer
     private void startTimer(){
-        scheduler = Executors.newScheduledThreadPool(1);
-        startTime = System.currentTimeMillis();
+        scheduler = Executors.newScheduledThreadPool(1); //crea un thread per il timer
+        startTime = System.currentTimeMillis(); //tempo di inizio
         
         scheduler.scheduleAtFixedRate(() -> {
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            long seconds = elapsedTime / 1000 % 60;
-            long minutes = elapsedTime / (1000 * 60) % 60;
-            long hours = elapsedTime / (1000 * 60 * 60);
+            long elapsedTime = System.currentTimeMillis() - startTime; //calcola il tempo trascorso
+            long seconds = elapsedTime / 1000 % 60; //calcola i secondi
+            long minutes = elapsedTime / (1000 * 60) % 60; //calcola i minuti
+            long hours = elapsedTime / (1000 * 60 * 60); //calcola le ore
             
             // Aggiornare l'interfaccia utente nel thread della piattaforma JavaFX
-            Platform.runLater(() -> {
-                timerLabel.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            Platform.runLater(() -> { 
+                timerLabel.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds)); //aggiorna il timer
             });
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS); //aggiorna il timer ogni secondo
     }
 
     //metodo per fermare il timer
     private void stopTimer() {
         if (scheduler != null && !scheduler.isShutdown()) {
-            scheduler.shutdown();
+            scheduler.shutdown();//ferma il timer
         }
     }
 
@@ -186,7 +186,7 @@ private void loadEsercizio(){
             timeline.setCycleCount(code.length());
             timeline.play();
     }
-
+    //metodo per controllare la risposta
     @FXML private void checkAnswer(ActionEvent event){
         RadioButton selectedRadioButton = (RadioButton) Answer.getSelectedToggle();
         if (selectedRadioButton != null ){
@@ -214,7 +214,6 @@ private void loadEsercizio(){
                             punteggio++;
                         }
                     }
-                //TODO --> INVIARE UNA MAIL ALL'UTENTE CON IL PUNTEGGIO
                 String destinatario = utente.getEmail();
                 String oggetto = "Punteggio Test Finale";
                 String contenuto = "Complimenti hai completato il test finale con un punteggio di: " + punteggio + " su 10, in " + timerLabel.getText();
@@ -246,39 +245,38 @@ private void loadEsercizio(){
 
     //metodo per inviare una mail
     private void sendEmail(String destinatario, String oggetto, String contenuto){
-        //TODO --> IMPLEMENTARE L'INVIO DI UNA MAIL
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
+        Properties properties = new Properties(); //creazione di un oggetto properties
+        properties.put("mail.smtp.auth", "true"); //autenticazione
+        properties.put("mail.smtp.starttls.enable", "true"); //abilita tls
+        properties.put("mail.smtp.host", "smtp.gmail.com"); //host
+        properties.put("mail.smtp.port", "587"); //porta
 
         //autenticazione utente
         String username = "dscwebconsulting@gmail.com";
         String password = "rqeq zqme tgrg hniz";
 
         //creazione di una sessione
-        Session session = Session.getInstance(properties, new Authenticator() {
+        Session session = Session.getInstance(properties, new Authenticator() { //creazione di una sessione
             @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+            protected PasswordAuthentication getPasswordAuthentication() { //autenticazione
+                return new PasswordAuthentication(username, password); //ritorna l'autenticazione
             }
         });
 
         //creazione dell'email
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
-            message.setSubject(oggetto);
-            message.setText(contenuto);
+        try { //creazione dell'email
+            Message message = new MimeMessage(session); //creazione di un oggetto message
+            message.setFrom(new InternetAddress(username)); //mittente dell'email
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario)); //destinatario dell'email
+            message.setSubject(oggetto); //oggetto dell'email
+            message.setText(contenuto); //contenuto dell'email
 
             //invio dell'email
-            javax.mail.Transport.send(message);
+            javax.mail.Transport.send(message); //invio dell'email
             
             // Chiudi la finestra dell'applicazione
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.close();
+            Stage stage = (Stage) root.getScene().getWindow();  // Ottieni la finestra corrente
+            stage.close(); //chiudo la finestra dell'applicazione
         } catch (Exception e) {
             System.out.println("Errore nell'invio dell'email");
             e.printStackTrace();
