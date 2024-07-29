@@ -1,11 +1,11 @@
 Metti in ordine il codice
-public class Fattoriale {
-public static void main(String[] args) {
-int numero = 5;
-int risultato = calcolaFattoriale(numero);
-System.out.println("Il fattoriale di " + numero + " è " + risultato);}
-public static int calcolaFattoriale(int n) {
-if (n == 0)
-return 1;
-else 
-return n * calcolaFattoriale(n - 1);}}
+A public class Fattoriale {
+B public static void main(String[] args) {
+C int numero = 5;
+D int risultato = calcolaFattoriale(numero);
+E System.out.println("Il fattoriale di " + numero + " è " + risultato);}
+F public static int calcolaFattoriale(int n) {
+G if (n == 0)
+H return 1;
+I else 
+J return n * calcolaFattoriale(n - 1);}}

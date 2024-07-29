@@ -57,4 +57,19 @@ public class RulesController {
             e.printStackTrace();
         }
     }
+
+    @FXML private void tornaIndietro(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Esercizi/Front/front.fxml"));
+            Parent root = loader.load();
+            FrontController frontController = loader.getController();
+            frontController.setUtente(utente);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -146,6 +146,7 @@ public class ConfrontaCodiceController implements Initializable {
             }
         }
     } 
+    
 
     // Metodo per verificare la risposta dell'utente
     @FXML private void checkAnswer(ActionEvent event) {

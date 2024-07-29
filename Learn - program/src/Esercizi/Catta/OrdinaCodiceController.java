@@ -130,7 +130,7 @@ public class OrdinaCodiceController implements Initializable {
         spazioCodice.add(titoloEs, 0, 0, 2, 1);
     
         int rowIndex = 1;
-        char letter = 'A'; // Iniziamo con la lettera 'A'
+        char letter = 'A'; 
         for (String segment : segmentiCodice) {
             // Crea le label
             Label letterLabel = new Label(String.valueOf(letter));
